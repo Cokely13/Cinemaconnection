@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import GameBoard from './GameBoard'
 
 /**
  * COMPONENT
@@ -9,7 +10,7 @@ export const Home = props => {
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+    <GameBoard/>
     </div>
   )
 }

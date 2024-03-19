@@ -19,3 +19,48 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.game-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.word-card {
+  cursor: pointer;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  margin: 5px;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.word-card.selected {
+  background-color: #4CAF50; /* Selected card color */
+  color: white;
+}
+
+.control-panel {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+  background-color: #eaeaea;
+}
+
+.mistakes {
+  margin-top: 10px;
+}
