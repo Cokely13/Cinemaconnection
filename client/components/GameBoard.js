@@ -53,8 +53,17 @@ const GameBoard = () => {
   };
 
   const handleSubmit = () => {
-    // Logic to check if selected words form a correct group
-    // Update mistakes count if necessary
+    if (selectedWords.size === 4) {
+      // Create a new array where the selected words are at the beginning
+      const selectedWordsArray = Array.from(selectedWords);
+      const newGameWords = selectedWordsArray.concat(gameWords.filter(word => !selectedWords.has(word)));
+
+      setGameWords(newGameWords); // Update the gameWords state
+      setSelectedWords(new Set(selectedWordsArray)); // Keep the selected words selected
+    } else {
+      // Handle the case where fewer or more than 4 words are selected, e.g., show an error
+      console.log("Please select exactly 4 words");
+    }
   };
 
   const handleShuffle = () => {
@@ -68,7 +77,7 @@ const GameBoard = () => {
 
   return (
     <div>
-      <div className="game-board">
+      <div className={`game-board ${gameWords.length === 12 ? 'adjusted' : ''}`}>
       {gameWords.map((word, index) => (
           <WordCard
             key={index}

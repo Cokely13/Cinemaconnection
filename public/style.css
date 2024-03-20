@@ -38,6 +38,15 @@ form div {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* .word-card.selected {
+  background-color: red; /* Red background for selected cards */
+} */
+
+/* Adjust the grid-template-columns to accommodate 3 columns when there are only 12 words */
+.game-board.adjusted {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .word-card.selected {
   background-color: #4CAF50; /* Selected card color */
   color: white;
