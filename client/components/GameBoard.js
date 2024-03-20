@@ -19,11 +19,14 @@ const GameBoard = () => {
   const [mistakes, setMistakes] = useState(0);
   const [gameWords, setGameWords] = useState([]);
 
-  const allWords = ['GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS', 'GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS'];
+  // const allWords = ['GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS', 'GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS'];
+
+  const allWords = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
 
   const shuffleWords = () => {
     const shuffled = [...allWords].sort(() => 0.5 - Math.random());
     setGameWords(shuffled.slice(0, 16));
+
   };
 
   // Shuffle words on component mount
@@ -47,7 +50,8 @@ const GameBoard = () => {
   };
 
   const handleShuffle = () => {
-    // Logic to shuffle the words array
+    setGameWords(gameWords.sort(() => 0.5 - Math.random()));
+    setSelectedWords(new Set()); // This will clear the selection
   };
 
   const handleDeselectAll = () => {
