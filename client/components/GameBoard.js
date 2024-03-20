@@ -36,10 +36,18 @@ const GameBoard = () => {
 
   const toggleSelectWord = (word) => {
     const newSelection = new Set(selectedWords);
+
+    // Check if the word is already selected, if so, remove it from the selection
     if (newSelection.has(word)) {
       newSelection.delete(word);
     } else {
-      newSelection.add(word);
+      // Only add the new word if less than 4 are already selected
+      if (newSelection.size < 4) {
+        newSelection.add(word);
+      } else {
+        // Optionally, you can handle the error here, such as showing an alert or a message
+        console.log("Cannot select more than 4 words");
+      }
     }
     setSelectedWords(newSelection);
   };
