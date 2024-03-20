@@ -1,16 +1,44 @@
 'use strict'
 
-const {db, models: {User} } = require('../server/db')
+const fs = require('fs');
+const csv = require('csv-parser');
+const { db, models: { Quarterback, Receiver, User } } = require('../server/db');
 
+// async function readQBsAndReceivers() {
+//   return new Promise((resolve, reject) => {
+//     const results = [];
+//     fs.createReadStream('script/data.csv') // Ensure correct path
+//       .pipe(csv({
+//         mapHeaders: ({ header, index }) => index === 0 ? 'receiver' : 'quarterback',
+//       }))
+//       .on('data', (data) => results.push([data.receiver, data.quarterback]))
+//       .on('end', () => {
+//         resolve(results);
+//       })
+//       .on('error', reject);
+//   });
+// }
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
 async function seed() {
-  await db.sync({ force: true }) // clears db and matches models to tables
-  console.log('db synced!')
+  await db.sync({ force: true }); // Clears db and matches models to tables
+  console.log('db synced!');
 
-  // Creating Users
+  return new Promise((resolve, reject) => {
+    const results = [];
+    fs.createReadStream('script/data.csv') // Ensure correct path
+      .pipe(csv({
+        mapHeaders: ({ header, index }) => index === 0 ? 'receiver' : 'quarterback',
+      }))
+      .on('data', (data) => results.push([data.receiver, data.quarterback]))
+      .on('end', () => {
+        resolve(results);
+      })
+      .on('error', reject);
+  });
+
   const users = await Promise.all([
     User.create({ username: 'cody', password: '123' }),
     User.create({ username: 'murphy', password: '123' }),
@@ -24,7 +52,26 @@ async function seed() {
       murphy: users[1]
     }
   }
+
+  // Assuming CSV has no header and is structured as Receiver,Quarterback
+  const results = await readQBsAndReceivers();
+
+  for (const result of results) {
+    const [receiverName, qbName] = result; // Adjust based on actual data structure
+    let qb = await Quarterback.findOne({ where: { name: qbName } });
+
+    if (!qb) {
+      qb = await Quarterback.create({ name: qbName });
+    }
+
+    await Receiver.create({ name: receiverName, quarterbackId: qb.id });
+  }
+
+  console.log(`seeded successfully`);
 }
+
+  // const qbsAndReceivers = await readQBsAndReceivers();
+
 
 /*
  We've separated the `seed` function from the `runSeed` function.
