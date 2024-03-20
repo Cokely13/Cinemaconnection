@@ -4,29 +4,12 @@ const fs = require('fs');
 const csv = require('csv-parser');
 const { db, models: { Quarterback, Receiver, User } } = require('../server/db');
 
-// async function readQBsAndReceivers() {
-//   return new Promise((resolve, reject) => {
-//     const results = [];
-//     fs.createReadStream('script/data.csv') // Ensure correct path
-//       .pipe(csv({
-//         mapHeaders: ({ header, index }) => index === 0 ? 'receiver' : 'quarterback',
-//       }))
-//       .on('data', (data) => results.push([data.receiver, data.quarterback]))
-//       .on('end', () => {
-//         resolve(results);
-//       })
-//       .on('error', reject);
-//   });
-// }
-/**
- * seed - this function clears the database, updates tables to
- *      match the models, and populates the database.
- */
 async function seed() {
   await db.sync({ force: true }); // Clears db and matches models to tables
   console.log('db synced!');
 
-  return new Promise((resolve, reject) => {
+  // Moved CSV reading logic here
+  const results = await new Promise((resolve, reject) => {
     const results = [];
     fs.createReadStream('script/data.csv') // Ensure correct path
       .pipe(csv({
@@ -39,25 +22,9 @@ async function seed() {
       .on('error', reject);
   });
 
-  const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
-
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
-  }
-
-  // Assuming CSV has no header and is structured as Receiver,Quarterback
-  const results = await readQBsAndReceivers();
-
+  // Process results after CSV read is complete
   for (const result of results) {
-    const [receiverName, qbName] = result; // Adjust based on actual data structure
+    const [receiverName, qbName] = result;
     let qb = await Quarterback.findOne({ where: { name: qbName } });
 
     if (!qb) {
@@ -67,6 +34,13 @@ async function seed() {
     await Receiver.create({ name: receiverName, quarterbackId: qb.id });
   }
 
+  // Your users creation logic remains the same
+  const users = await Promise.all([
+    User.create({ username: 'cody', password: '123' }),
+    User.create({ username: 'murphy', password: '123' }),
+  ]);
+
+  console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
 }
 
