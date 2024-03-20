@@ -24,15 +24,55 @@ const GameBoard = () => {
 
   const allWords = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
 
-  const shuffleWords = () => {
-    const shuffled = [...allWords].sort(() => 0.5 - Math.random());
-    setGameWords(shuffled.slice(0, 16));
+  const qbs= [
+    {
+      "quarterback": "QB1",
+      "receivers": ["WR1", "WR2", "WR3", "WR4"]
+    },
+    {
+      "quarterback": "QB2",
+      "receivers": ["WR5", "WR6", "WR7", "WR8"]
+    },
+    {
+      "quarterback": "QB3",
+      "receivers": ["WR9", "WR10", "WR11", "WR12"]
+    },
+    {
+      "quarterback": "QB4",
+      "receivers": ["WR13", "WR14", "WR15", "WR16"]
+    },
+    {
+      "quarterback": "QB5",
+      "receivers": ["WR17", "WR18", "WR19", "WR20"]
+    }
+  ]
 
+  // const shuffleWords = () => {
+  //   const shuffled = [...allWords].sort(() => 0.5 - Math.random());
+  //   setGameWords(shuffled.slice(0, 16));
+
+  // };
+
+  const shuffleQBsAndWRs = () => {
+    // Shuffle QBs
+    const shuffledQBs = [...qbs].sort(() => 0.5 - Math.random());
+
+    // Select first 4 QBs
+    const selectedQBs = shuffledQBs.slice(0, 4);
+
+    // Extract and shuffle WRs from the selected QBs
+    const selectedWRs = selectedQBs.flatMap(qb => qb.receivers).sort(() => 0.5 - Math.random());
+
+    setGameWords(selectedWRs);
   };
 
   // Shuffle words on component mount
+  // useEffect(() => {
+  //   shuffleWords();
+  // }, []);
+
   useEffect(() => {
-    shuffleWords();
+    shuffleQBsAndWRs();
   }, []);
 
   useEffect(() => {
@@ -74,16 +114,40 @@ const GameBoard = () => {
   //   }
   // };
 
+  // const handleSubmit = () => {
+  //   if (selectedWords.size === 4) {
+  //     // Add the selected words to the submittedWords array
+  //     setSubmittedWords([...submittedWords, ...selectedWords]);
+
+  //     // Filter out the selected words from the gameWords array
+  //     setGameWords(gameWords.filter(word => !selectedWords.has(word)));
+
+  //     // Clear the selected words
+  //     setSelectedWords(new Set());
+  //   } else {
+  //     console.log("Please select exactly 4 words");
+  //   }
+  // };
+
   const handleSubmit = () => {
     if (selectedWords.size === 4) {
-      // Add the selected words to the submittedWords array
-      setSubmittedWords([...submittedWords, ...selectedWords]);
+      // Find if all selected WRs are from the same QB
+      const isSameQB = qbs.some(qb => {
+        return Array.from(selectedWords).every(wr => qb.receivers.includes(wr));
+      });
 
-      // Filter out the selected words from the gameWords array
-      setGameWords(gameWords.filter(word => !selectedWords.has(word)));
+      if (isSameQB) {
+        // Move the selected words to the submittedWords array and clear selections
+        setSubmittedWords(prev => [...prev, ...selectedWords]);
+        setSelectedWords(new Set());
+      } else {
+        // Wrong selection, increment mistakes and clear selections
+        setMistakes(prev => prev + 1);
+        setSelectedWords(new Set());
+        alert("WRONG");
+      }
 
-      // Clear the selected words
-      setSelectedWords(new Set());
+      // Optionally, shuffle remaining WRs or take other actions
     } else {
       console.log("Please select exactly 4 words");
     }
