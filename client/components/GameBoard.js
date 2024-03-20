@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// import './Game.css'; // Assume you have a CSS file for styling
+import { useSelector, useDispatch } from 'react-redux';
+import {fetchQuarterbacks} from '../store/allQuarterbacksStore'
+
 
 // Individual word card component
 const WordCard = ({ word, onSelect, isSelected }) => {
+
+
   return (
     <div
       className={`word-card ${isSelected ? 'selected' : ''}`}
@@ -19,10 +23,14 @@ const GameBoard = () => {
   const [mistakes, setMistakes] = useState(0);
   const [submittedWords, setSubmittedWords] = useState([]);
   const [gameWords, setGameWords] = useState([]);
+  const dispatch = useDispatch();
+  const allQuarterbacks = useSelector((state) => state.allQuarterbacks);
 
-  // const allWords = ['GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS', 'GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS'];
+  useEffect(() => {
+    dispatch(fetchQuarterbacks());
+  }, []);
 
-  const allWords = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
+  console.log("test", allQuarterbacks)
 
   const qbs= [
     {
@@ -47,24 +55,40 @@ const GameBoard = () => {
     }
   ]
 
-  // const shuffleWords = () => {
-  //   const shuffled = [...allWords].sort(() => 0.5 - Math.random());
-  //   setGameWords(shuffled.slice(0, 16));
 
+
+  // const shuffleQBsAndWRs = () => {
+  //   // Shuffle QBs
+  //   const shuffledQBs = [...qbs].sort(() => 0.5 - Math.random());
+
+  //   // Select first 4 QBs
+  //   const selectedQBs = shuffledQBs.slice(0, 4);
+
+
+
+  //   // Extract and shuffle WRs from the selected QBs
+  //   const selectedWRs = selectedQBs.flatMap(qb => qb.receivers).sort(() => 0.5 - Math.random());
+  //   setGameWords(selectedWRs);
   // };
 
   const shuffleQBsAndWRs = () => {
-    // Shuffle QBs
-    const shuffledQBs = [...qbs].sort(() => 0.5 - Math.random());
+    // Use allQuarterbacks from the redux store instead of the hardcoded qbs array
+    const shuffledQBs = [...allQuarterbacks].sort(() => 0.5 - Math.random());
 
     // Select first 4 QBs
     const selectedQBs = shuffledQBs.slice(0, 4);
 
     // Extract and shuffle WRs from the selected QBs
-    const selectedWRs = selectedQBs.flatMap(qb => qb.receivers).sort(() => 0.5 - Math.random());
-
+    const selectedWRs = selectedQBs.flatMap(qb => qb.receivers.map(receiver => receiver.name)).sort(() => 0.5 - Math.random());
     setGameWords(selectedWRs);
   };
+
+  // Ensure this useEffect hook is called after your component is mounted and whenever allQuarterbacks changes
+  useEffect(() => {
+    if (allQuarterbacks.length > 0) {
+      shuffleQBsAndWRs();
+    }
+  }, [allQuarterbacks]);
 
   // Shuffle words on component mount
   // useEffect(() => {
