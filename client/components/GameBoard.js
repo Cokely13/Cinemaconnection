@@ -170,9 +170,17 @@ const GameBoard = () => {
         setSelectedWords(new Set()); // Clear the selections
       } else {
         // Wrong selection, increment mistakes and clear selections
-        setMistakes(prev => prev + 1);
-        setSelectedWords(new Set());
-        alert("WRONG");
+        setMistakes(prev => {
+          const newMistakes = prev + 1;
+          if (newMistakes >= 3) { // Assuming 5 is the max number of allowed mistakes
+            alert("You Lost!");
+            window.location.reload();
+            return newMistakes; // Return here to prevent further execution and showing "WRONG" alert
+          }
+          setSelectedWords(new Set());
+          alert("WRONG");
+          return newMistakes;
+        });
       }
     } else {
       console.log("Please select exactly 4 words");
@@ -211,7 +219,7 @@ const GameBoard = () => {
         <button onClick={handleDeselectAll}>Deselect all</button>
         <button onClick={handleSubmit}>Submit</button>
         <div className="mistakes">
-          Mistakes remaining: {5 - mistakes}
+          Mistakes remaining: {3 - mistakes}
         </div>
       </div>
     </div>
