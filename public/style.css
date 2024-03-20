@@ -28,6 +28,20 @@ form div {
     padding: 20px;
   }
 
+  .submitted-words {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 20px;
+    background-color: yellow;
+  }
+
+  .submitted-words.first-row {
+    /* This class is applied after the first 4 words are submitted */
+    margin-bottom: 0; /* Removes spacing if it's the first row */
+  }
+
 .word-card {
   cursor: pointer;
   background-color: #f9f9f9;
@@ -73,3 +87,5 @@ button:hover {
 .mistakes {
   margin-top: 10px;
 }
+
+

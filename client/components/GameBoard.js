@@ -35,6 +35,13 @@ const GameBoard = () => {
     shuffleWords();
   }, []);
 
+  useEffect(() => {
+    // Check if the user has submitted 4 sets of 4 words
+    if (submittedWords.length === 16) {
+      alert("You Won!");
+    }
+  }, [submittedWords]);
+
   const toggleSelectWord = (word) => {
     const newSelection = new Set(selectedWords);
 
