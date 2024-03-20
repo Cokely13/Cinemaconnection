@@ -129,25 +129,51 @@ const GameBoard = () => {
   //   }
   // };
 
+  // const handleSubmit = () => {
+  //   if (selectedWords.size === 4) {
+  //     // Find if all selected WRs are from the same QB
+  //     const isSameQB = qbs.some(qb => {
+  //       return Array.from(selectedWords).every(wr => qb.receivers.includes(wr));
+  //     });
+
+  //     if (isSameQB) {
+  //       // Move the selected words to the submittedWords array and clear selections
+  //       setSubmittedWords(prev => [...prev, ...selectedWords]);
+  //       setSelectedWords(new Set());
+  //     } else {
+  //       // Wrong selection, increment mistakes and clear selections
+  //       setMistakes(prev => prev + 1);
+  //       setSelectedWords(new Set());
+  //       alert("WRONG");
+  //     }
+
+  //     // Optionally, shuffle remaining WRs or take other actions
+  //   } else {
+  //     console.log("Please select exactly 4 words");
+  //   }
+  // };
+
   const handleSubmit = () => {
     if (selectedWords.size === 4) {
-      // Find if all selected WRs are from the same QB
       const isSameQB = qbs.some(qb => {
         return Array.from(selectedWords).every(wr => qb.receivers.includes(wr));
       });
 
       if (isSameQB) {
-        // Move the selected words to the submittedWords array and clear selections
-        setSubmittedWords(prev => [...prev, ...selectedWords]);
-        setSelectedWords(new Set());
+        const newSubmittedWords = [...submittedWords, ...Array.from(selectedWords)];
+        setSubmittedWords(newSubmittedWords);
+
+        // Remove the correctly guessed words from the gameWords array
+        const remainingWords = gameWords.filter(word => !selectedWords.has(word));
+        setGameWords(remainingWords);
+
+        setSelectedWords(new Set()); // Clear the selections
       } else {
         // Wrong selection, increment mistakes and clear selections
         setMistakes(prev => prev + 1);
         setSelectedWords(new Set());
         alert("WRONG");
       }
-
-      // Optionally, shuffle remaining WRs or take other actions
     } else {
       console.log("Please select exactly 4 words");
     }
