@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import './Game.css'; // Assume you have a CSS file for styling
 
 // Individual word card component
@@ -17,8 +17,19 @@ const WordCard = ({ word, onSelect, isSelected }) => {
 const GameBoard = () => {
   const [selectedWords, setSelectedWords] = useState(new Set());
   const [mistakes, setMistakes] = useState(0);
+  const [gameWords, setGameWords] = useState([]);
 
-  const words = ['GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS'];
+  const allWords = ['GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS', 'GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS'];
+
+  const shuffleWords = () => {
+    const shuffled = [...allWords].sort(() => 0.5 - Math.random());
+    setGameWords(shuffled.slice(0, 16));
+  };
+
+  // Shuffle words on component mount
+  useEffect(() => {
+    shuffleWords();
+  }, []);
 
   const toggleSelectWord = (word) => {
     const newSelection = new Set(selectedWords);
@@ -46,9 +57,9 @@ const GameBoard = () => {
   return (
     <div>
       <div className="game-board">
-        {words.map((word) => (
+      {gameWords.map((word, index) => (
           <WordCard
-            key={word}
+            key={index}
             word={word}
             isSelected={selectedWords.has(word)}
             onSelect={toggleSelectWord}
