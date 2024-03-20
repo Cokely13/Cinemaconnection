@@ -3,6 +3,7 @@ import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import auth from './auth'
+import singleQuarterbackReducer from './singleQuarterbackStore'
 
 const reducer = combineReducers({ auth })
 const middleware = composeWithDevTools(
