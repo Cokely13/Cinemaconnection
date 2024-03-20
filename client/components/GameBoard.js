@@ -17,6 +17,7 @@ const WordCard = ({ word, onSelect, isSelected }) => {
 const GameBoard = () => {
   const [selectedWords, setSelectedWords] = useState(new Set());
   const [mistakes, setMistakes] = useState(0);
+  const [submittedWords, setSubmittedWords] = useState([]);
   const [gameWords, setGameWords] = useState([]);
 
   // const allWords = ['GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS', 'GUESS', 'CHARADE', 'KING', 'WIND', 'TEST', 'TRY', 'GOOF', 'TROOP', 'THINGS'];
@@ -52,16 +53,31 @@ const GameBoard = () => {
     setSelectedWords(newSelection);
   };
 
+  // const handleSubmit = () => {
+  //   if (selectedWords.size === 4) {
+  //     // Create a new array where the selected words are at the beginning
+  //     const selectedWordsArray = Array.from(selectedWords);
+  //     const newGameWords = selectedWordsArray.concat(gameWords.filter(word => !selectedWords.has(word)));
+
+  //     setGameWords(newGameWords); // Update the gameWords state
+  //     setSelectedWords(new Set(selectedWordsArray)); // Keep the selected words selected
+  //   } else {
+  //     // Handle the case where fewer or more than 4 words are selected, e.g., show an error
+  //     console.log("Please select exactly 4 words");
+  //   }
+  // };
+
   const handleSubmit = () => {
     if (selectedWords.size === 4) {
-      // Create a new array where the selected words are at the beginning
-      const selectedWordsArray = Array.from(selectedWords);
-      const newGameWords = selectedWordsArray.concat(gameWords.filter(word => !selectedWords.has(word)));
+      // Add the selected words to the submittedWords array
+      setSubmittedWords([...submittedWords, ...selectedWords]);
 
-      setGameWords(newGameWords); // Update the gameWords state
-      setSelectedWords(new Set(selectedWordsArray)); // Keep the selected words selected
+      // Filter out the selected words from the gameWords array
+      setGameWords(gameWords.filter(word => !selectedWords.has(word)));
+
+      // Clear the selected words
+      setSelectedWords(new Set());
     } else {
-      // Handle the case where fewer or more than 4 words are selected, e.g., show an error
       console.log("Please select exactly 4 words");
     }
   };
@@ -76,9 +92,15 @@ const GameBoard = () => {
   };
 
   return (
-    <div>
+       <div>
+      {/* Render submitted words first */}
+      <div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : ''}`}>
+        {submittedWords.map((word, index) => (
+          <WordCard key={`submitted-${index}`} word={word} onSelect={() => {}} isSelected={false} />
+        ))}
+      </div>
       <div className={`game-board ${gameWords.length === 12 ? 'adjusted' : ''}`}>
-      {gameWords.map((word, index) => (
+        {gameWords.map((word, index) => (
           <WordCard
             key={index}
             word={word}
