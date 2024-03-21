@@ -30,46 +30,9 @@ const GameBoard = () => {
     dispatch(fetchQuarterbacks());
   }, []);
 
-  console.log("test", allQuarterbacks)
-
-  const qbs= [
-    {
-      "quarterback": "QB1",
-      "receivers": ["WR1", "WR2", "WR3", "WR4"]
-    },
-    {
-      "quarterback": "QB2",
-      "receivers": ["WR5", "WR6", "WR7", "WR8"]
-    },
-    {
-      "quarterback": "QB3",
-      "receivers": ["WR9", "WR10", "WR11", "WR12"]
-    },
-    {
-      "quarterback": "QB4",
-      "receivers": ["WR13", "WR14", "WR15", "WR16"]
-    },
-    {
-      "quarterback": "QB5",
-      "receivers": ["WR17", "WR18", "WR19", "WR20"]
-    }
-  ]
 
 
 
-  // const shuffleQBsAndWRs = () => {
-  //   // Shuffle QBs
-  //   const shuffledQBs = [...qbs].sort(() => 0.5 - Math.random());
-
-  //   // Select first 4 QBs
-  //   const selectedQBs = shuffledQBs.slice(0, 4);
-
-
-
-  //   // Extract and shuffle WRs from the selected QBs
-  //   const selectedWRs = selectedQBs.flatMap(qb => qb.receivers).sort(() => 0.5 - Math.random());
-  //   setGameWords(selectedWRs);
-  // };
 
   const shuffleQBsAndWRs = () => {
     // Use allQuarterbacks from the redux store instead of the hardcoded qbs array
@@ -125,29 +88,34 @@ const GameBoard = () => {
   };
 
 
+
   // const handleSubmit = () => {
   //   if (selectedWords.size === 4) {
-  //     const isSameQB = qbs.some(qb => {
-  //       return Array.from(selectedWords).every(wr => qb.receivers.includes(wr));
+  //     // Find the QB for each selected WR
+  //     const qbIds = Array.from(selectedWords).map(wrName => {
+  //       const qb = allQuarterbacks.find(qb =>
+  //         qb.receivers.some(receiver => receiver.name === wrName));
+  //       return qb ? qb.id : null;
   //     });
+
+  //     // Check if all selected WRs have the same QB
+  //     const isSameQB = new Set(qbIds).size === 1;
 
   //     if (isSameQB) {
   //       const newSubmittedWords = [...submittedWords, ...Array.from(selectedWords)];
   //       setSubmittedWords(newSubmittedWords);
 
-  //       // Remove the correctly guessed words from the gameWords array
-  //       const remainingWords = gameWords.filter(word => !selectedWords.has(word));
+  //       const remainingWords = gameWords.filter(word => !selectedWords.has(word.name));
   //       setGameWords(remainingWords);
 
-  //       setSelectedWords(new Set()); // Clear the selections
+  //       setSelectedWords(new Set());
   //     } else {
-  //       // Wrong selection, increment mistakes and clear selections
   //       setMistakes(prev => {
   //         const newMistakes = prev + 1;
-  //         if (newMistakes >= 3) { // Assuming 5 is the max number of allowed mistakes
+  //         if (newMistakes >= 3) {
   //           alert("You Lost!");
   //           window.location.reload();
-  //           return newMistakes; // Return here to prevent further execution and showing "WRONG" alert
+  //           return newMistakes;
   //         }
   //         setSelectedWords(new Set());
   //         alert("WRONG");
@@ -161,36 +129,31 @@ const GameBoard = () => {
 
   const handleSubmit = () => {
     if (selectedWords.size === 4) {
-      // Find the QB for each selected WR
-      const qbIds = Array.from(selectedWords).map(wrName => {
-        const qb = allQuarterbacks.find(qb =>
-          qb.receivers.some(receiver => receiver.name === wrName));
-        return qb ? qb.id : null;
-      });
-
-      // Check if all selected WRs have the same QB
-      const isSameQB = new Set(qbIds).size === 1;
+      const selectedWordArray = Array.from(selectedWords);
+      const isSameQB = allQuarterbacks.some(qb =>
+        selectedWordArray.every(wrName =>
+          qb.receivers.some(receiver => receiver.name === wrName)));
 
       if (isSameQB) {
-        const newSubmittedWords = [...submittedWords, ...Array.from(selectedWords)];
+        // Correctly guessed all WRs from the same QB
+        const newSubmittedWords = [...submittedWords, ...selectedWordArray];
         setSubmittedWords(newSubmittedWords);
 
-        const remainingWords = gameWords.filter(word => !selectedWords.has(word.name));
+        // Remove correctly guessed WRs from the game board
+        const remainingWords = gameWords.filter(wrName => !selectedWords.has(wrName));
         setGameWords(remainingWords);
 
-        setSelectedWords(new Set());
+        setSelectedWords(new Set()); // Clear the selections
       } else {
-        setMistakes(prev => {
-          const newMistakes = prev + 1;
-          if (newMistakes >= 3) {
-            alert("You Lost!");
-            window.location.reload();
-            return newMistakes;
-          }
-          setSelectedWords(new Set());
+        // Incorrect guess, handle mistake
+        setMistakes(prev => prev + 1);
+        if (mistakes + 1 >= 3) {
+          alert("You Lost!");
+          window.location.reload();
+        } else {
           alert("WRONG");
-          return newMistakes;
-        });
+          setSelectedWords(new Set());
+        }
       }
     } else {
       console.log("Please select exactly 4 words");
