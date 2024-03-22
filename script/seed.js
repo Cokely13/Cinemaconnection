@@ -34,6 +34,28 @@ async function seed() {
     await Receiver.create({ name: receiverName, quarterbackId: qb.id });
   }
 
+  const quarterbackImages = {
+    'Brady': '/Brady.jpg',
+    'Rodgers': '/rodgers.jpg',
+    'Peyton': '/Peyton.jpg',
+    'Brees': '/brees.jpg',
+    'Favre': '/favre.jpg',
+    'Eli': '/eli.jpg',
+    'Ryan': '/Ryan.jpg',
+    'Peyton': '/peyton.jpg',
+    'Marino': '/marino.jpg',
+    'Roethlisberger': '/ben.jpg',
+    'Rivers': '/Rivers.jpg',
+
+    // Add other quarterbacks and their image paths
+  };
+
+  // Update quarterback images
+for (const qbName in quarterbackImages) {
+  const imagePath = quarterbackImages[qbName];
+ await Quarterback.update({ imagePath }, { where: { name: qbName } });
+}
+
   // Your users creation logic remains the same
   const users = await Promise.all([
     User.create({ username: 'cody', password: '123' }),
@@ -44,6 +66,9 @@ async function seed() {
   console.log(`seeded successfully`);
 }
 
+
+
+
   // const qbsAndReceivers = await readQBsAndReceivers();
 
 
@@ -52,6 +77,9 @@ async function seed() {
  This way we can isolate the error handling and exit trapping.
  The `seed` function is concerned only with modifying the database.
 */
+
+
+
 async function runSeed() {
   console.log('seeding...')
   try {

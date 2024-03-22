@@ -88,45 +88,6 @@ const GameBoard = () => {
   };
 
 
-
-  // const handleSubmit = () => {
-  //   if (selectedWords.size === 4) {
-  //     // Find the QB for each selected WR
-  //     const qbIds = Array.from(selectedWords).map(wrName => {
-  //       const qb = allQuarterbacks.find(qb =>
-  //         qb.receivers.some(receiver => receiver.name === wrName));
-  //       return qb ? qb.id : null;
-  //     });
-
-  //     // Check if all selected WRs have the same QB
-  //     const isSameQB = new Set(qbIds).size === 1;
-
-  //     if (isSameQB) {
-  //       const newSubmittedWords = [...submittedWords, ...Array.from(selectedWords)];
-  //       setSubmittedWords(newSubmittedWords);
-
-  //       const remainingWords = gameWords.filter(word => !selectedWords.has(word.name));
-  //       setGameWords(remainingWords);
-
-  //       setSelectedWords(new Set());
-  //     } else {
-  //       setMistakes(prev => {
-  //         const newMistakes = prev + 1;
-  //         if (newMistakes >= 3) {
-  //           alert("You Lost!");
-  //           window.location.reload();
-  //           return newMistakes;
-  //         }
-  //         setSelectedWords(new Set());
-  //         alert("WRONG");
-  //         return newMistakes;
-  //       });
-  //     }
-  //   } else {
-  //     console.log("Please select exactly 4 words");
-  //   }
-  // };
-
   const handleSubmit = () => {
     if (selectedWords.size === 4) {
       const selectedWordArray = Array.from(selectedWords);
