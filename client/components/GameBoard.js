@@ -4,18 +4,15 @@ import {fetchQuarterbacks} from '../store/allQuarterbacksStore'
 
 
 // Individual word card component
-const WordCard = ({ word, onSelect, isSelected }) => {
-
-
+const WordCard = ({ word, onSelect, isSelected, image }) => {
   return (
-    <div
-      className={`word-card ${isSelected ? 'selected' : ''}`}
-      onClick={() => onSelect(word)}
-    >
-      {word}
+    <div  className={`word-card ${isSelected ? 'selected' : ''}`} onClick={() => onSelect(word)}>
+       {image && <img src={image} alt={word} style={{ width: '80px', height: '80px' }} />} {/* Render the image if available */}
+      <div >{word}</div>
     </div>
   );
 };
+
 
 // Main game board component
 const GameBoard = () => {
@@ -88,38 +85,55 @@ const GameBoard = () => {
   };
 
 
+
   const handleSubmit = () => {
     if (selectedWords.size === 4) {
       const selectedWordArray = Array.from(selectedWords);
-      const isSameQB = allQuarterbacks.some(qb =>
-        selectedWordArray.every(wrName =>
-          qb.receivers.some(receiver => receiver.name === wrName)));
+
+      const qbImages = [];
+      const isSameQB = allQuarterbacks.some((qb) => {
+        const allWrMatch = selectedWordArray.every((wrName) =>
+          qb.receivers.some((receiver) => receiver.name === wrName)
+        );
+
+        if (allWrMatch) {
+          qbImages.push(qb.imagePath); // Capture the QB's image path when a match is found
+        }
+
+        return allWrMatch;
+      });
 
       if (isSameQB) {
         // Correctly guessed all WRs from the same QB
-        const newSubmittedWords = [...submittedWords, ...selectedWordArray];
+        const newSubmittedWords = [...submittedWords, ...selectedWordArray.map((wrName, idx) => ({ name: wrName, qbImagePath: qbImages[idx] }))];
         setSubmittedWords(newSubmittedWords);
-
+        console.log("gamewords", gameWords)
+        console.log("selectedwords", selectedWords)
         // Remove correctly guessed WRs from the game board
-        const remainingWords = gameWords.filter(wrName => !selectedWords.has(wrName));
+        const remainingWords = gameWords.filter((wr) => !selectedWords.has(wr));
+
+        console.log("remaining", remainingWords)
         setGameWords(remainingWords);
+
+
 
         setSelectedWords(new Set()); // Clear the selections
       } else {
         // Incorrect guess, handle mistake
-        setMistakes(prev => prev + 1);
+        setMistakes((prev) => prev + 1);
         if (mistakes + 1 >= 3) {
-          alert("You Lost!");
+          alert('You Lost!');
           window.location.reload();
         } else {
-          alert("WRONG");
+          alert('WRONG');
           setSelectedWords(new Set());
         }
       }
     } else {
-      console.log("Please select exactly 4 words");
+      console.log('Please select exactly 4 words');
     }
   };
+
 
   const handleShuffle = () => {
     setGameWords(gameWords.sort(() => 0.5 - Math.random()));
@@ -133,11 +147,33 @@ const GameBoard = () => {
   return (
        <div>
       {/* Render submitted words first */}
-      <div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : ''}`}>
+      {/* <div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : submittedWords.length === 8 ? 'second-row' : submittedWords.length === 12 ? 'third-row' : submittedWords.length === 16 ? 'winner' : ''}`}>
         {submittedWords.map((word, index) => (
-          <WordCard key={`submitted-${index}`} word={word} onSelect={() => {}} isSelected={false} />
+          <WordCard
+            key={`submitted-${index}`}
+            word={word.name}
+            onSelect={() => {}}
+            isSelected={false}
+            image={word.qbImagePath} // Pass the QB's image path
+          />
         ))}
-      </div>
+      </div> */}
+{/* Render submitted words first */}
+<div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : submittedWords.length === 8 ? 'second-row' : submittedWords.length === 12 ? 'third-row' : submittedWords.length === 16 ? 'winner' : ''}`}>
+  {/* Iterate over each submitted word */}
+  {submittedWords.map((word, index) => (
+    <React.Fragment key={`submitted-${index}`}>
+
+      {/* Render the word card */}
+      <WordCard
+        word={word.name}
+        onSelect={() => {}}
+        isSelected={false}
+        image={word.qbImagePath} // Pass the QB's image path
+      />
+    </React.Fragment>
+  ))}
+</div>
       <div className={`game-board ${gameWords.length === 12 ? 'adjusted' : ''}`}>
         {gameWords.map((word, index) => (
           <WordCard

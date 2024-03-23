@@ -38,19 +38,40 @@ form div {
   }
 
   .submitted-words.first-row {
+    background-color: red;
+    /* This class is applied after the first 4 words are submitted */
+    margin-bottom: 0; /* Removes spacing if it's the first row */
+  }
+
+  .submitted-words.second-row {
+    background-color: blue;
+    /* This class is applied after the first 4 words are submitted */
+    margin-bottom: 0; /* Removes spacing if it's the first row */
+  }
+
+  .submitted-words.third-row {
+    background-color: yellow;
+    /* This class is applied after the first 4 words are submitted */
+    margin-bottom: 0; /* Removes spacing if it's the first row */
+  }
+
+  .submitted-words.winner {
+    background-color: green;
     /* This class is applied after the first 4 words are submitted */
     margin-bottom: 0; /* Removes spacing if it's the first row */
   }
 
 .word-card {
   cursor: pointer;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: gray;
+  border: 2px solid black;
   padding: 10px 20px;
   margin: 5px;
   text-align: center;
   transition: background-color 0.3s, color 0.3s;
 }
+
+/* style={{backgroundColor: "gray"}} */
 
 /* .word-card.selected {
   background-color: red; /* Red background for selected cards */
@@ -62,8 +83,8 @@ form div {
 }
 
 .word-card.selected {
-  background-color: #4CAF50; /* Selected card color */
-  color: white;
+  background-color: blue; /* Selected card color */
+  color: yellow;
 }
 
 .control-panel {
