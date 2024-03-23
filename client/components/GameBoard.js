@@ -86,15 +86,72 @@ const GameBoard = () => {
 
 
 
+  // const handleSubmit = () => {
+  //   if (selectedWords.size === 4) {
+  //     const selectedWordArray = Array.from(selectedWords);
+
+  //     const qbImages = [];
+  //     const isSameQB = allQuarterbacks.some((qb) => {
+  //       const allWrMatch = selectedWordArray.every((wrName) =>
+  //         qb.receivers.some((receiver) => receiver.name === wrName)
+  //       );
+
+  //       if (allWrMatch) {
+  //         qbImages.push(qb.imagePath); // Capture the QB's image path when a match is found
+  //       }
+
+  //       return allWrMatch;
+  //     });
+
+  //     if (isSameQB) {
+  //       // Correctly guessed all WRs from the same QB
+  //       const newSubmittedWords = [...submittedWords, ...selectedWordArray.map((wrName, idx) => ({ name: wrName, qbImagePath: qbImages[idx] }))];
+  //       setSubmittedWords(newSubmittedWords);
+  //       console.log("gamewords", gameWords)
+  //       console.log("selectedwords", selectedWords)
+  //       // Remove correctly guessed WRs from the game board
+  //       const remainingWords = gameWords.filter((wr) => !selectedWords.has(wr));
+
+  //       console.log("remaining", remainingWords)
+  //       setGameWords(remainingWords);
+
+
+
+  //       setSelectedWords(new Set()); // Clear the selections
+  //     } else {
+  //       // Incorrect guess, handle mistake
+  //       setMistakes((prev) => prev + 1);
+  //       if (mistakes + 1 >= 3) {
+  //         alert('You Lost!');
+  //         window.location.reload();
+  //       } else {
+  //         alert('WRONG');
+  //         setSelectedWords(new Set());
+  //       }
+  //     }
+  //   } else {
+  //     console.log('Please select exactly 4 words');
+  //   }
+  // };
+
   const handleSubmit = () => {
     if (selectedWords.size === 4) {
       const selectedWordArray = Array.from(selectedWords);
 
       const qbImages = [];
+      const matchingQBs = [];
+
+      // Check if there is a quarterback that matches three out of four receivers
       const isSameQB = allQuarterbacks.some((qb) => {
-        const allWrMatch = selectedWordArray.every((wrName) =>
+        const matchingWRs = selectedWordArray.filter((wrName) =>
           qb.receivers.some((receiver) => receiver.name === wrName)
         );
+
+        if (matchingWRs.length === 3) {
+          matchingQBs.push(qb.name);
+        }
+
+        const allWrMatch = matchingWRs.length === 4;
 
         if (allWrMatch) {
           qbImages.push(qb.imagePath); // Capture the QB's image path when a match is found
@@ -115,8 +172,6 @@ const GameBoard = () => {
         console.log("remaining", remainingWords)
         setGameWords(remainingWords);
 
-
-
         setSelectedWords(new Set()); // Clear the selections
       } else {
         // Incorrect guess, handle mistake
@@ -125,7 +180,12 @@ const GameBoard = () => {
           alert('You Lost!');
           window.location.reload();
         } else {
-          alert('WRONG');
+          // Check if there is only one quarterback matching three out of four receivers
+          if (matchingQBs.length === 1) {
+            alert('Wrong! (But One Away!)');
+          } else {
+            alert('WRONG');
+          }
           setSelectedWords(new Set());
         }
       }
