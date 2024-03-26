@@ -86,54 +86,6 @@ const GameBoard = () => {
 
 
 
-  // const handleSubmit = () => {
-  //   if (selectedWords.size === 4) {
-  //     const selectedWordArray = Array.from(selectedWords);
-
-  //     const qbImages = [];
-  //     const isSameQB = allQuarterbacks.some((qb) => {
-  //       const allWrMatch = selectedWordArray.every((wrName) =>
-  //         qb.receivers.some((receiver) => receiver.name === wrName)
-  //       );
-
-  //       if (allWrMatch) {
-  //         qbImages.push(qb.imagePath); // Capture the QB's image path when a match is found
-  //       }
-
-  //       return allWrMatch;
-  //     });
-
-  //     if (isSameQB) {
-  //       // Correctly guessed all WRs from the same QB
-  //       const newSubmittedWords = [...submittedWords, ...selectedWordArray.map((wrName, idx) => ({ name: wrName, qbImagePath: qbImages[idx] }))];
-  //       setSubmittedWords(newSubmittedWords);
-  //       console.log("gamewords", gameWords)
-  //       console.log("selectedwords", selectedWords)
-  //       // Remove correctly guessed WRs from the game board
-  //       const remainingWords = gameWords.filter((wr) => !selectedWords.has(wr));
-
-  //       console.log("remaining", remainingWords)
-  //       setGameWords(remainingWords);
-
-
-
-  //       setSelectedWords(new Set()); // Clear the selections
-  //     } else {
-  //       // Incorrect guess, handle mistake
-  //       setMistakes((prev) => prev + 1);
-  //       if (mistakes + 1 >= 3) {
-  //         alert('You Lost!');
-  //         window.location.reload();
-  //       } else {
-  //         alert('WRONG');
-  //         setSelectedWords(new Set());
-  //       }
-  //     }
-  //   } else {
-  //     console.log('Please select exactly 4 words');
-  //   }
-  // };
-
   const handleSubmit = () => {
     if (selectedWords.size === 4) {
       const selectedWordArray = Array.from(selectedWords);
@@ -223,6 +175,12 @@ const GameBoard = () => {
   {/* Iterate over each submitted word */}
   {submittedWords.map((word, index) => (
     <React.Fragment key={`submitted-${index}`}>
+      {/* Render the quarterback image */}
+      {(index % 8 === 0 || index % 8 === 6) && (
+        <div className="qb-image-container">
+          <img src={word.qbImagePath} alt="Quarterback" className="qb-image" />
+        </div>
+      )}
 
       {/* Render the word card */}
       <WordCard
