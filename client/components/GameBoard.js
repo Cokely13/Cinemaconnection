@@ -159,7 +159,7 @@ const GameBoard = () => {
   return (
        <div>
       {/* Render submitted words first */}
-      {/* <div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : submittedWords.length === 8 ? 'second-row' : submittedWords.length === 12 ? 'third-row' : submittedWords.length === 16 ? 'winner' : ''}`}>
+      <div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : submittedWords.length === 8 ? 'second-row' : submittedWords.length === 12 ? 'third-row' : submittedWords.length === 16 ? 'winner' : ''}`}>
         {submittedWords.map((word, index) => (
           <WordCard
             key={`submitted-${index}`}
@@ -169,39 +169,22 @@ const GameBoard = () => {
             image={word.qbImagePath} // Pass the QB's image path
           />
         ))}
-      </div> */}
-{/* Render submitted words first */}
-<div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : submittedWords.length === 8 ? 'second-row' : submittedWords.length === 12 ? 'third-row' : submittedWords.length === 16 ? 'winner' : ''}`}>
-  {/* Iterate over each submitted word */}
-  {submittedWords.map((word, index) => (
-    <React.Fragment key={`submitted-${index}`}>
-      {/* Render the quarterback image */}
-      {(index % 8 === 0 || index % 8 === 6) && (
-        <div className="qb-image-container">
-          <img src={word.qbImagePath} alt="Quarterback" className="qb-image" />
-        </div>
-      )}
-
-      {/* Render the word card */}
-      <WordCard
-        word={word.name}
-        onSelect={() => {}}
-        isSelected={false}
-        image={word.qbImagePath} // Pass the QB's image path
-      />
-    </React.Fragment>
-  ))}
-</div>
-      <div className={`game-board ${gameWords.length === 12 ? 'adjusted' : ''}`}>
-        {gameWords.map((word, index) => (
-          <WordCard
-            key={index}
-            word={word}
-            isSelected={selectedWords.has(word)}
-            onSelect={toggleSelectWord}
-          />
-        ))}
       </div>
+{/* Render submitted words first */}
+<div>
+    {/* Render submitted words first */}
+
+    <div className={`game-board ${gameWords.length === 12 ? 'adjusted' : ''}`}>
+      {gameWords.map((word, index) => (
+        <WordCard
+          key={index}
+          word={word}
+          isSelected={selectedWords.has(word)}
+          onSelect={toggleSelectWord}
+        />
+      ))}
+    </div>
+
       <div className="control-panel">
         <button onClick={handleShuffle}>Shuffle</button>
         <button onClick={handleDeselectAll}>Deselect all</button>
@@ -210,6 +193,7 @@ const GameBoard = () => {
           Mistakes remaining: {3 - mistakes}
         </div>
       </div>
+    </div>
     </div>
   );
 };
