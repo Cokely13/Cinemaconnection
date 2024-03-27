@@ -20,6 +20,7 @@ const GameBoard = () => {
   const [mistakes, setMistakes] = useState(0);
   const [submittedWords, setSubmittedWords] = useState([]);
   const [gameWords, setGameWords] = useState([]);
+  const [picture, setPicture] = useState([]);
   const dispatch = useDispatch();
   const allQuarterbacks = useSelector((state) => state.allQuarterbacks);
 
@@ -116,12 +117,14 @@ const GameBoard = () => {
         // Correctly guessed all WRs from the same QB
         const newSubmittedWords = [...submittedWords, ...selectedWordArray.map((wrName, idx) => ({ name: wrName, qbImagePath: qbImages[idx] }))];
         setSubmittedWords(newSubmittedWords);
-        console.log("gamewords", gameWords)
-        console.log("selectedwords", selectedWords)
+        const images = [...picture]
+
+        images.push(qbImages)
+        setPicture(images)
+        console.log("images", images)
         // Remove correctly guessed WRs from the game board
         const remainingWords = gameWords.filter((wr) => !selectedWords.has(wr));
 
-        console.log("remaining", remainingWords)
         setGameWords(remainingWords);
 
         setSelectedWords(new Set()); // Clear the selections
@@ -159,6 +162,11 @@ const GameBoard = () => {
   return (
        <div>
       {/* Render submitted words first */}
+
+      {picture[0] ? <div> First{<img src={picture[0]} style={{ width: '80px', height: '80px' }} />} </div>: <div></div>}
+      {picture[1] ? <div> 2nd {<img src={picture[1]} style={{ width: '80px', height: '80px' }} />}</div>: <div></div>}
+      {picture[2] ? <div> 3rd {<img src={picture[2]} style={{ width: '80px', height: '80px' }} />}</div>: <div></div>}
+      {picture[3] ? <div> 4th {<img src={picture[3]} style={{ width: '80px', height: '80px' }} />}</div>: <div></div>}
       <div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : submittedWords.length === 8 ? 'second-row' : submittedWords.length === 12 ? 'third-row' : submittedWords.length === 16 ? 'winner' : ''}`}>
         {submittedWords.map((word, index) => (
           <WordCard
