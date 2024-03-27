@@ -162,11 +162,32 @@ const GameBoard = () => {
   return (
        <div>
       {/* Render submitted words first */}
-
-      {picture[0] ? <div> First{<img src={picture[0]} style={{ width: '80px', height: '80px' }} />} </div>: <div></div>}
-      {picture[1] ? <div> 2nd {<img src={picture[1]} style={{ width: '80px', height: '80px' }} />}</div>: <div></div>}
-      {picture[2] ? <div> 3rd {<img src={picture[2]} style={{ width: '80px', height: '80px' }} />}</div>: <div></div>}
-      {picture[3] ? <div> 4th {<img src={picture[3]} style={{ width: '80px', height: '80px' }} />}</div>: <div></div>}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+  {picture[0] ? (
+    <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
+      <div>1st:</div>
+      <img src={picture[0]} alt="1st" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+    </div>
+  ) : null}
+  {picture[1] ? (
+    <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
+      <div>2nd:</div>
+      <img src={picture[1]} alt="2nd" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+    </div>
+  ) : null}
+  {picture[2] ? (
+    <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
+      <div>3rd:</div>
+      <img src={picture[2]} alt="3rd" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+    </div>
+  ) : null}
+  {picture[3] ? (
+    <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
+      <div>4th:</div>
+      <img src={picture[3]} alt="4th" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+    </div>
+  ) : null}
+</div>
       <div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : submittedWords.length === 8 ? 'second-row' : submittedWords.length === 12 ? 'third-row' : submittedWords.length === 16 ? 'winner' : ''}`}>
         {submittedWords.map((word, index) => (
           <WordCard
