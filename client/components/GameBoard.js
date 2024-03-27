@@ -149,7 +149,7 @@ const GameBoard = () => {
       } else {
         // Incorrect guess, handle mistake
         setMistakes((prev) => prev + 1);
-        if (mistakes + 1 >= 3) {
+        if (mistakes + 1 >= 5) {
           alert('You Lost!');
           window.location.reload();
         } else {
@@ -184,7 +184,7 @@ const GameBoard = () => {
        <div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
           <h2>1st:</h2>
-          <img src={picture[0]} alt="1st" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+          <img src={picture[0]} alt="1st" className="picture-container" />
         </div>
       <div className='submitted-words first-row'>
   {/* Map over the first 4 words in submittedWords */}
@@ -201,7 +201,7 @@ const GameBoard = () => {
       {row2 ?     <div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
       <h2>2nd:</h2>
-      <img src={picture[1]} alt="2nd" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+      <img src={picture[1]} alt="1st" className="picture-container" />
 
     </div>
       <div className='submitted-words second-row'>
@@ -216,7 +216,7 @@ const GameBoard = () => {
   ))}</div></div>: <div></div>}
        {row3 ?   <div> <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'center', margin: '10px 0' }}>
       <h2>3rd:</h2>
-      <img src={picture[2]} alt="3rd" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+      <img src={picture[2]} alt="1st" className="picture-container" />
     </div>  <div className='submitted-words third-row'>
   {submittedWords.slice(8, 12).map((word, index) => (
     <WordCard
@@ -231,7 +231,7 @@ const GameBoard = () => {
        {row4 ?  <div>
        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
        <h2>4th:</h2>
-       <img src={picture[3]} alt="4th" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+       <img src={picture[3]} alt="1st" className="picture-container" />
      </div>
           <div className='submitted-words winner'>
   {submittedWords.slice(12, 16).map((word, index) => (
@@ -243,45 +243,6 @@ const GameBoard = () => {
       image={word.qbImagePath} // Pass the QB's image path
     />
   ))}</div></div>: <div></div>}
-      {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-  {picture[0] ? (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
-      <h2>1st:</h2>
-      <img src={picture[0]} alt="1st" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
-    </div>
-  ) : null}
-  {picture[1] ? (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
-      <h2>2nd:</h2>
-      <img src={picture[1]} alt="2nd" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
-
-    </div>
-  ) : null}
-  {picture[2] ? (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
-      <h2>3rd:</h2>
-      <img src={picture[2]} alt="3rd" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
-    </div>
-  ) : null}
-  {picture[3] ? (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
-      <h2>4th:</h2>
-      <img src={picture[3]} alt="4th" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
-    </div>
-  ) : null}
-</div> */}
-      <div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : submittedWords.length === 8 ? 'second-row' : submittedWords.length === 12 ? 'third-row' : submittedWords.length === 16 ? 'winner' : ''}`}>
-        {submittedWords.map((word, index) => (
-          <WordCard
-            key={`submitted-${index}`}
-            word={word.name}
-            onSelect={() => {}}
-            isSelected={false}
-            image={word.qbImagePath} // Pass the QB's image path
-          />
-        ))}
-      </div>
-{/* Render submitted words first */}
 <div>
     {/* Render submitted words first */}
 
@@ -301,7 +262,7 @@ const GameBoard = () => {
         <button onClick={handleDeselectAll}>Deselect all</button>
         <button onClick={handleSubmit}>Submit</button>
         <div className="mistakes">
-          Mistakes remaining: {3 - mistakes}
+          Mistakes remaining: {5 - mistakes}
         </div>
       </div>
     </div>

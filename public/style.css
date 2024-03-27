@@ -39,31 +39,39 @@ form div {
 
   .submitted-words.first-row {
     background-color: red;
+    border: 10px solid black;
+    border-radius: 10px;
     /* This class is applied after the first 4 words are submitted */
     margin-bottom: 0; /* Removes spacing if it's the first row */
   }
 
   .submitted-words.second-row {
     background-color: blue;
+    border: 10px solid black;
+    border-radius: 10px;
     /* This class is applied after the first 4 words are submitted */
     margin-bottom: 0; /* Removes spacing if it's the first row */
   }
 
   .submitted-words.third-row {
     background-color: yellow;
+    border: 10px solid black;
+    border-radius: 10px;
     /* This class is applied after the first 4 words are submitted */
     margin-bottom: 0; /* Removes spacing if it's the first row */
   }
 
   .submitted-words.winner {
     background-color: green;
+    border: 10px solid black;
+    border-radius: 10px;
     /* This class is applied after the first 4 words are submitted */
     margin-bottom: 0; /* Removes spacing if it's the first row */
   }
 
 .word-card {
   cursor: pointer;
-  background-color: gray;
+  background-color: white;
   border: 2px solid black;
   padding: 10px 20px;
   margin: 5px;
@@ -83,8 +91,8 @@ form div {
 }
 
 .word-card.selected {
-  background-color: blue; /* Selected card color */
-  color: yellow;
+  background-color: lightgray; /* Selected card color */
+  /* color: yellow; */
 }
 
 .control-panel {
@@ -112,5 +120,13 @@ button:hover {
 .qb-image{
   width: 80px;
   height: 80px
+}
+
+.picture-container {
+  width: 40%;
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto;
+  border: 10px solid black;
 }
 
