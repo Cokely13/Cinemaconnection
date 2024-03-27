@@ -83,8 +83,7 @@ const GameBoard = () => {
       if (newSelection.size < 4) {
         newSelection.add(word);
       } else {
-        // Optionally, you can handle the error here, such as showing an alert or a message
-        console.log("Cannot select more than 4 words");
+        alert("You can only select 4 words.");
       }
     }
     setSelectedWords(newSelection);
@@ -163,7 +162,9 @@ const GameBoard = () => {
         }
       }
     } else {
-      console.log('Please select exactly 4 words');
+      // Show a popup message if less than 4 words are selected
+      alert("Must select exactly 4 words.");
+
     }
   };
 
@@ -258,12 +259,12 @@ const GameBoard = () => {
     </div>
 
       <div className="control-panel">
-        <button onClick={handleShuffle}>Shuffle</button>
-        <button onClick={handleDeselectAll}>Deselect all</button>
-        <button onClick={handleSubmit}>Submit</button>
-        <div className="mistakes">
+        <button className="btn btn-warning" onClick={handleShuffle}>Shuffle</button>
+        <button className="btn btn-info" onClick={handleDeselectAll}>Deselect all</button>
+        <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
+        <h1 className="mistakes">
           Mistakes remaining: {5 - mistakes}
-        </div>
+        </h1>
       </div>
     </div>
     </div>

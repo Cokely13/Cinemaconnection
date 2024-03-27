@@ -89,6 +89,12 @@ form div {
 .game-board.adjusted {
   grid-template-columns: repeat(3, 1fr);
 }
+/*
+@media (max-width: 768px) {
+  .game-board {
+    grid-template-columns: repeat(3, 1fr);
+  }
+} */
 
 .word-card.selected {
   background-color: lightgray; /* Selected card color */
@@ -114,7 +120,8 @@ button:hover {
 }
 
 .mistakes {
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .qb-image{
@@ -130,3 +137,15 @@ button:hover {
   border: 10px solid black;
 }
 
+@media (max-width: 768px) {
+  .word-card {
+    padding: 5px 10px; /* Adjust padding for smaller word cards */
+    margin: 5px; /* Adjust margin for smaller word cards */
+  }
+}
+
+
+
+.control-panel button {
+  margin: 0 5px; /* Add margin between the buttons */
+}
