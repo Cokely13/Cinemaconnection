@@ -6,7 +6,8 @@ import Routes from './Routes'
 const App = () => {
   return (
     <div>
-      <Navbar />
+      <h1 style={{textAlign: "center"}}>Qb Connection</h1>
+      {/* <Navbar /> */}
       <Routes />
     </div>
   )

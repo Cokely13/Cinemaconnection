@@ -7,7 +7,8 @@ import {fetchQuarterbacks} from '../store/allQuarterbacksStore'
 const WordCard = ({ word, onSelect, isSelected, image }) => {
   return (
     <div  className={`word-card ${isSelected ? 'selected' : ''}`} onClick={() => onSelect(word)}>
-       {image && <img src={image} alt={word} style={{ width: '80px', height: '80px' }} />} {/* Render the image if available */}
+       {/* {image && <img src={image} alt={word} style={{ width: '80px', height: '80px' }} />} */}
+        {/* Render the image if available */}
       <div >{word}</div>
     </div>
   );
@@ -21,6 +22,10 @@ const GameBoard = () => {
   const [submittedWords, setSubmittedWords] = useState([]);
   const [gameWords, setGameWords] = useState([]);
   const [picture, setPicture] = useState([]);
+  const [row3, setRow3] = useState();
+  const [row1, setRow1] = useState();
+  const [row2, setRow2] = useState();
+  const [row4, setRow4] = useState();
   const dispatch = useDispatch();
   const allQuarterbacks = useSelector((state) => state.allQuarterbacks);
 
@@ -116,12 +121,25 @@ const GameBoard = () => {
       if (isSameQB) {
         // Correctly guessed all WRs from the same QB
         const newSubmittedWords = [...submittedWords, ...selectedWordArray.map((wrName, idx) => ({ name: wrName, qbImagePath: qbImages[idx] }))];
+        setRow1(true)
         setSubmittedWords(newSubmittedWords);
         const images = [...picture]
 
         images.push(qbImages)
         setPicture(images)
-        console.log("images", images)
+
+        if (submittedWords.length === 4){
+          setRow2(true)
+        }
+
+        if (submittedWords.length === 8){
+          setRow3(true)
+        }
+
+        if (submittedWords.length === 12){
+          setRow4(true)
+        }
+
         // Remove correctly guessed WRs from the game board
         const remainingWords = gameWords.filter((wr) => !selectedWords.has(wr));
 
@@ -162,32 +180,96 @@ const GameBoard = () => {
   return (
        <div>
       {/* Render submitted words first */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {row1 ?
+       <div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
+          <h2>1st:</h2>
+          <img src={picture[0]} alt="1st" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+        </div>
+      <div className='submitted-words first-row'>
+  {/* Map over the first 4 words in submittedWords */}
+  {submittedWords.slice(0, 4).map((word, index) => (
+    <WordCard
+      key={`submitted-${index}`}
+      word={word.name}
+      onSelect={() => {}}
+      isSelected={false}
+      image={word.qbImagePath} // Pass the QB's image path
+    />
+  ))}
+</div></div>: <div></div>}
+      {row2 ?     <div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
+      <h2>2nd:</h2>
+      <img src={picture[1]} alt="2nd" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+
+    </div>
+      <div className='submitted-words second-row'>
+  {submittedWords.slice(4, 8).map((word, index) => (
+    <WordCard
+      key={`submitted-${index}`}
+      word={word.name}
+      onSelect={() => {}}
+      isSelected={false}
+      image={word.qbImagePath} // Pass the QB's image path
+    />
+  ))}</div></div>: <div></div>}
+       {row3 ?   <div> <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'center', margin: '10px 0' }}>
+      <h2>3rd:</h2>
+      <img src={picture[2]} alt="3rd" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+    </div>  <div className='submitted-words third-row'>
+  {submittedWords.slice(8, 12).map((word, index) => (
+    <WordCard
+      key={`submitted-${index}`}
+      word={word.name}
+      onSelect={() => {}}
+      isSelected={false}
+      image={word.qbImagePath} // Pass the QB's image path
+    />
+  ))}</div></div>: <div></div>}
+
+       {row4 ?  <div>
+       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
+       <h2>4th:</h2>
+       <img src={picture[3]} alt="4th" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+     </div>
+          <div className='submitted-words winner'>
+  {submittedWords.slice(12, 16).map((word, index) => (
+    <WordCard
+      key={`submitted-${index}`}
+      word={word.name}
+      onSelect={() => {}}
+      isSelected={false}
+      image={word.qbImagePath} // Pass the QB's image path
+    />
+  ))}</div></div>: <div></div>}
+      {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
   {picture[0] ? (
-    <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
-      <div>1st:</div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
+      <h2>1st:</h2>
       <img src={picture[0]} alt="1st" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
     </div>
   ) : null}
   {picture[1] ? (
-    <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
-      <div>2nd:</div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
+      <h2>2nd:</h2>
       <img src={picture[1]} alt="2nd" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
+
     </div>
   ) : null}
   {picture[2] ? (
-    <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
-      <div>3rd:</div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
+      <h2>3rd:</h2>
       <img src={picture[2]} alt="3rd" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
     </div>
   ) : null}
   {picture[3] ? (
-    <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
-      <div>4th:</div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
+      <h2>4th:</h2>
       <img src={picture[3]} alt="4th" style={{ width: '80px', height: '80px', border: '10px solid black' }} />
     </div>
   ) : null}
-</div>
+</div> */}
       <div className={`submitted-words ${submittedWords.length === 4 ? 'first-row' : submittedWords.length === 8 ? 'second-row' : submittedWords.length === 12 ? 'third-row' : submittedWords.length === 16 ? 'winner' : ''}`}>
         {submittedWords.map((word, index) => (
           <WordCard

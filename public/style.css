@@ -34,7 +34,7 @@ form div {
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     padding: 20px;
-    background-color: yellow;
+    /* background-color: yellow; */
   }
 
   .submitted-words.first-row {
