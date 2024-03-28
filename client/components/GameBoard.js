@@ -5,6 +5,9 @@ import { Button, Modal } from 'react-bootstrap';
 import WinModal from './WinModal';
 import LossModal from './LossModal';
 import ErrorModal from './ErrorModal';
+import Error2Modal from './Error2Modal';
+import OneAwayModal from './OneAwayModal';
+import WrongModal from './WrongModal';
 
 
 // Individual word card component
@@ -34,6 +37,9 @@ const GameBoard = () => {
   const [showWinModal, setShowWinModal] = useState(false);
   const [showLossModal, setShowLossModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showError2Modal, setShowError2Modal] = useState(false);
+  const [showOneAwayModal, setShowOneAwayModal] = useState(false);
+  const [showWrongModal, setShowWrongModal] = useState(false);
 
   const allQuarterbacks = useSelector((state) => state.allQuarterbacks);
 
@@ -54,6 +60,18 @@ const GameBoard = () => {
 
   const handleError = () => {
     setShowErrorModal(true);
+  };
+
+  const handleError2 = () => {
+    setShowError2Modal(true);
+  };
+
+  const handleOneAway= () => {
+    setShowOneAwayModal(true);
+  };
+
+  const handleWrong= () => {
+    setShowWrongModal(true);
   };
 
 
@@ -183,16 +201,16 @@ const GameBoard = () => {
         } else {
           // Check if there is only one quarterback matching three out of four receivers
           if (matchingQBs.length === 1) {
-            alert('Wrong! (But One Away!)');
+            handleOneAway()
           } else {
-            alert('WRONG');
+            handleWrong()
           }
           setSelectedWords(new Set());
         }
       }
     } else {
       // Show a popup message if less than 4 words are selected
-      handleError()
+      handleError2()
 
     }
   };
@@ -321,6 +339,9 @@ const GameBoard = () => {
     <WinModal show={showWinModal} onHide={() => setShowWinModal(false)} />
       <LossModal show={showLossModal} onHide={() => setShowLossModal(false)} />
       <ErrorModal show={showErrorModal} onHide={() => setShowErrorModal(false)} />
+      <Error2Modal show={showError2Modal} onHide={() => setShowError2Modal(false)} />
+      <OneAwayModal show={showOneAwayModal} onHide={() => setShowOneAwayModal(false)} />
+      <WrongModal show={showWrongModal} onHide={() => setShowWrongModal(false)} />
     </div>
   );
 };
