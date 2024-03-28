@@ -3,7 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 
 const WinModal = ({ show, onHide }) => {
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={onHide} className="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title>Congratulations!</Modal.Title>
       </Modal.Header>

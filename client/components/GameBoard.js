@@ -234,7 +234,7 @@ const GameBoard = () => {
       </div>
 
       {/* How To Play Modal */}
-      <Modal show={showHowToPlayModal} onHide={handleClose}>
+      <Modal show={showHowToPlayModal} onHide={handleClose} className="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title>How To Play</Modal.Title>
         </Modal.Header>

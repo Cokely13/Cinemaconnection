@@ -3,7 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 
 const LossModal = ({ show, onHide }) => {
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={onHide} className="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title>Oops!</Modal.Title>
       </Modal.Header>

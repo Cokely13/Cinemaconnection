@@ -151,4 +151,28 @@ button:hover {
   margin: 0 5px; /* Add margin between the buttons */
 }
 
+.custom-modal {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 200px;
+}
+
+.custom-modal .modal-header {
+  /* Custom header styles */
+  background-color: #f8f9fa;
+  /* display: flex; */
+  margin-left: auto;
+  margin-right: auto;
+  /* justify-content: center; */
+}
+
+.custom-modal .modal-body {
+text-align: center;
+}
+
+.custom-modal .modal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
