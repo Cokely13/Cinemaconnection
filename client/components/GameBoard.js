@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {fetchQuarterbacks} from '../store/allQuarterbacksStore'
+import { Button, Modal } from 'react-bootstrap';
 
 
 // Individual word card component
@@ -27,13 +28,16 @@ const GameBoard = () => {
   const [row2, setRow2] = useState();
   const [row4, setRow4] = useState();
   const dispatch = useDispatch();
+  const [showHowToPlayModal, setShowHowToPlayModal] = useState(false);
+
   const allQuarterbacks = useSelector((state) => state.allQuarterbacks);
 
   useEffect(() => {
     dispatch(fetchQuarterbacks());
   }, []);
 
-
+  const handleClose = () => setShowHowToPlayModal(false);
+  const handleShow = () => setShowHowToPlayModal(true);
 
 
 
@@ -89,7 +93,19 @@ const GameBoard = () => {
     setSelectedWords(newSelection);
   };
 
-
+  const handlePlayAgain = () => {
+    // Reset the game state here
+    setMistakes(0);
+    setSubmittedWords([]);
+    setGameWords([]);
+    setPicture([]);
+    setRow1(false);
+    setRow2(false);
+    setRow3(false);
+    setRow4(false);
+    setSelectedWords(new Set());
+    shuffleQBsAndWRs();
+  };
 
   const handleSubmit = () => {
     if (selectedWords.size === 4) {
@@ -149,7 +165,7 @@ const GameBoard = () => {
         // Incorrect guess, handle mistake
         setMistakes((prev) => prev + 1);
         if (mistakes + 1 >= 5) {
-          alert('You Lost!');
+          alert('You Lost! Try Again?');
           window.location.reload();
         } else {
           // Check if there is only one quarterback matching three out of four receivers
@@ -180,6 +196,26 @@ const GameBoard = () => {
 
   return (
        <div>
+    <div style={{ textAlign: 'center', margin: '20px' }}>
+        <Button variant="link" onClick={handleShow}>
+          How To Play
+        </Button>
+      </div>
+
+      {/* How To Play Modal */}
+      <Modal show={showHowToPlayModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>How To Play</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Select 4 players who caught touchdowns from the same quarterback.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {/* Render submitted words first */}
       {row1 ?
        <div>
@@ -258,14 +294,16 @@ const GameBoard = () => {
       ))}
     </div>
 
-      <div className="control-panel">
+    {submittedWords.length === 16 ?  <div className="control-panel">
+          <button style={{marginBottom: '20px'}} className="btn btn-primary" onClick={handlePlayAgain}>Play Again</button>
+        </div> : <div className="control-panel">
         <button className="btn btn-warning" onClick={handleShuffle}>Shuffle</button>
         <button className="btn btn-info" onClick={handleDeselectAll}>Deselect all</button>
         <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
         <h1 className="mistakes">
           Mistakes remaining: {5 - mistakes}
         </h1>
-      </div>
+      </div>}
     </div>
     </div>
   );
