@@ -2,18 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {fetchQuarterbacks} from '../store/allQuarterbacksStore'
 import { Button, Modal } from 'react-bootstrap';
+import WinModal from './WinModal';
+import LossModal from './LossModal';
+import ErrorModal from './ErrorModal';
 
 
 // Individual word card component
 const WordCard = ({ word, onSelect, isSelected, image }) => {
   return (
     <div  className={`word-card ${isSelected ? 'selected' : ''}`} onClick={() => onSelect(word)}>
-       {/* {image && <img src={image} alt={word} style={{ width: '80px', height: '80px' }} />} */}
-        {/* Render the image if available */}
       <div >{word}</div>
     </div>
   );
 };
+
 
 
 // Main game board component
@@ -29,6 +31,9 @@ const GameBoard = () => {
   const [row4, setRow4] = useState();
   const dispatch = useDispatch();
   const [showHowToPlayModal, setShowHowToPlayModal] = useState(false);
+  const [showWinModal, setShowWinModal] = useState(false);
+  const [showLossModal, setShowLossModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const allQuarterbacks = useSelector((state) => state.allQuarterbacks);
 
@@ -38,6 +43,18 @@ const GameBoard = () => {
 
   const handleClose = () => setShowHowToPlayModal(false);
   const handleShow = () => setShowHowToPlayModal(true);
+  const handleWin = () => {
+    setShowWinModal(true);
+  };
+
+  // Function to handle losing condition
+  const handleLoss = () => {
+    setShowLossModal(true);
+  };
+
+  const handleError = () => {
+    setShowErrorModal(true);
+  };
 
 
 
@@ -65,14 +82,10 @@ const GameBoard = () => {
 
 
 
-  // useEffect(() => {
-  //   shuffleQBsAndWRs();
-  // }, []);
-
   useEffect(() => {
     // Check if the user has submitted 4 sets of 4 words
     if (submittedWords.length === 16) {
-      alert("You Won!");
+        handleWin(); // Show win modal
     }
   }, [submittedWords]);
 
@@ -87,7 +100,7 @@ const GameBoard = () => {
       if (newSelection.size < 4) {
         newSelection.add(word);
       } else {
-        alert("You can only select 4 words.");
+        handleError()
       }
     }
     setSelectedWords(newSelection);
@@ -153,6 +166,7 @@ const GameBoard = () => {
 
         if (submittedWords.length === 12){
           setRow4(true)
+          handleWin(); // Show win modal
         }
 
         // Remove correctly guessed WRs from the game board
@@ -165,8 +179,7 @@ const GameBoard = () => {
         // Incorrect guess, handle mistake
         setMistakes((prev) => prev + 1);
         if (mistakes + 1 >= 5) {
-          alert('You Lost! Try Again?');
-          window.location.reload();
+          handleLoss(); // Show loss modal
         } else {
           // Check if there is only one quarterback matching three out of four receivers
           if (matchingQBs.length === 1) {
@@ -179,7 +192,7 @@ const GameBoard = () => {
       }
     } else {
       // Show a popup message if less than 4 words are selected
-      alert("Must select exactly 4 words.");
+      handleError()
 
     }
   };
@@ -305,6 +318,9 @@ const GameBoard = () => {
         </h1>
       </div>}
     </div>
+    <WinModal show={showWinModal} onHide={() => setShowWinModal(false)} />
+      <LossModal show={showLossModal} onHide={() => setShowLossModal(false)} />
+      <ErrorModal show={showErrorModal} onHide={() => setShowErrorModal(false)} />
     </div>
   );
 };
