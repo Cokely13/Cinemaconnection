@@ -44,7 +44,7 @@ async function seed() {
     'Ryan': '/Ryan.jpg',
     'Peyton': '/peyton.jpg',
     'Marino': '/marino.jpg',
-    'Roethlisberger': '/ben.jpg',
+    'Roethlisberger': '/Ben.jpg',
     'Rivers': '/Rivers.jpg',
 
     // Add other quarterbacks and their image paths

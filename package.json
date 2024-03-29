@@ -33,6 +33,7 @@
     "morgan": "^1.9.1",
     "pg": "^8.5.1",
     "react-bootstrap": "^2.10.2",
+    "react-confetti": "^6.1.0",
     "sequelize": "^6.3.5"
   },
   "devDependencies": {

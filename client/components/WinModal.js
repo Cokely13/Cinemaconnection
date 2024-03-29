@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import Confetti from 'react-confetti'; // Import Confetti component
 
 const WinModal = ({ show, onHide }) => {
   return (
-    <Modal show={show} onHide={onHide} className="custom-modal">
+    <Modal show={show} onHide={onHide} centered className="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title>Congratulations!</Modal.Title>
       </Modal.Header>

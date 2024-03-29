@@ -10,6 +10,8 @@ import OneAwayModal from './OneAwayModal';
 import WrongModal from './WrongModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFootballBall } from '@fortawesome/free-solid-svg-icons';
+import Confetti from 'react-confetti';
+
 
 
 // Individual word card component
@@ -47,6 +49,7 @@ const GameBoard = () => {
   const [showError2Modal, setShowError2Modal] = useState(false);
   const [showOneAwayModal, setShowOneAwayModal] = useState(false);
   const [showWrongModal, setShowWrongModal] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const allQuarterbacks = useSelector((state) => state.allQuarterbacks);
 
@@ -55,10 +58,18 @@ const GameBoard = () => {
   }, []);
 
   const handleClose = () => setShowHowToPlayModal(false);
-  const handleShow = () => setShowHowToPlayModal(true);
+  const handleShow = () => {
+    setShowHowToPlayModal(true)}
   const handleWin = () => {
+
     setShowWinModal(true);
+    setShowConfetti(true);
   };
+
+  const handlleConfetti = () => {
+    setShowConfetti(true);
+    console.log("hott")
+  }
 
   // Function to handle losing condition
   const handleLoss = () => {
@@ -67,6 +78,7 @@ const GameBoard = () => {
 
   const handleError = () => {
     setShowErrorModal(true);
+
   };
 
   const handleError2 = () => {
@@ -76,6 +88,8 @@ const GameBoard = () => {
   const handleOneAway= () => {
     setShowOneAwayModal(true);
   };
+
+
 
   const handleWrong= () => {
     setShowWrongModal(true);
@@ -142,6 +156,7 @@ const GameBoard = () => {
     setRow3(false);
     setRow4(false);
     setSelectedWords(new Set());
+    setShowConfetti(false)
     shuffleQBsAndWRs();
   };
 
@@ -191,6 +206,7 @@ const GameBoard = () => {
 
         if (submittedWords.length === 12){
           setRow4(true)
+
           handleWin(); // Show win modal
         }
 
@@ -240,6 +256,9 @@ const GameBoard = () => {
         </Button>
       </div>
 
+      <div className="confetti-container">
+  {showConfetti && <Confetti />}
+</div>
       {/* How To Play Modal */}
       <Modal show={showHowToPlayModal} onHide={handleClose} className="custom-modal">
         <Modal.Header closeButton>
