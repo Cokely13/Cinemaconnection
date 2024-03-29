@@ -10,9 +10,6 @@ const LossModal = ({ show, onHide }) => {
       <Modal.Body>You lost the game. Try again?</Modal.Body>
       <Modal.Footer>
         <Button variant="primary" onClick={onHide}>
-          Play Again
-        </Button>
-        <Button variant="primary" onClick={onHide}>
           Close
         </Button>
       </Modal.Footer>

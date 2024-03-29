@@ -10,9 +10,6 @@ const WinModal = ({ show, onHide }) => {
       <Modal.Body>You won the game!</Modal.Body>
       <Modal.Footer>
         <Button variant="primary" onClick={onHide}>
-          Play Again
-        </Button>
-        <Button variant="primary" onClick={onHide}>
           Close
         </Button>
       </Modal.Footer>
