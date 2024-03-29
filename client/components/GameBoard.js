@@ -236,7 +236,7 @@ const GameBoard = () => {
        <div>
     <div style={{ textAlign: 'center', margin: '20px' }}>
         <Button variant="link" onClick={handleShow}>
-          How To Play
+          <h3>How To Play</h3>
         </Button>
       </div>
 
