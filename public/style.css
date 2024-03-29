@@ -156,7 +156,7 @@ button:hover {
   .word-card {
     padding: 5px 10px; /* Adjust padding for smaller word cards */
     margin: 5px; /* Adjust margin for smaller word cards */
-    font-size: 12px; /* Adjust font size for mobile */
+    font-size: 10px; /* Adjust font size for mobile */
   }
 }
 
