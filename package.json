@@ -1,5 +1,5 @@
 {
-  "name": "qbconnection",
+  "name": "cinemaconnection",
   "version": "2.0.0",
   "description": "Qb connection game",
   "main": "index.js",
