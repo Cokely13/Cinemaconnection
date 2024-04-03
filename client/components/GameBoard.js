@@ -68,7 +68,6 @@ const GameBoard = () => {
 
   const handlleConfetti = () => {
     setShowConfetti(true);
-    console.log("hott")
   }
 
   // Function to handle losing condition
@@ -169,8 +168,8 @@ const GameBoard = () => {
 
       // Check if there is a quarterback that matches three out of four receivers
       const isSameQB = allActors.some((qb) => {
-        const matchingWRs = selectedWordArray.filter((wrName) =>
-          qb.receivers.some((receiver) => receiver.name === wrName)
+        const matchingWRs = selectedWordArray.filter((movieName) =>
+          qb.movies.some((movie) => movie.name === movieName)
         );
 
         if (matchingWRs.length === 3) {

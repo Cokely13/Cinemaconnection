@@ -34,27 +34,26 @@ async function seed() {
     await Movie.create({ name: movieName, actorId: actor.id });
   }
 
-//   const quarterbackImages = {
-//     'Brady': '/Brady.jpg',
-//     'Rodgers': '/rodgers.jpg',
-//     'Peyton': '/Peyton.jpg',
-//     'Brees': '/brees.jpg',
-//     'Favre': '/favre.jpg',
-//     'Eli': '/eli.jpg',
-//     'Ryan': '/Ryan.jpg',
-//     'Peyton': '/peyton.jpg',
-//     'Marino': '/marino.jpg',
-//     'Roethlisberger': '/Ben.jpg',
-//     'Rivers': '/Rivers.jpg',
+  const actorImages = {
+    'Anne Hathaway': '/anne.jpg',
+    'Ben Affleck': '/ben.jpg',
+    'Eddie Murphy': '/eddie.jpg',
+    'George Clooney': '/george.jpg',
+    'Kate Winslet': '/kate.jpg',
+    'Leonardo DiCaprio': '/leo.jpg',
+    'Matt Damon': '/matt.jpg',
+    'Meryl Streep': '/meryl.jpg',
+    'Tom Hanks': '/tomH.jpg',
+    'Will Smith': '/will.jpg',
 
 
-//   };
+  };
 
-//   // Update quarterback images
-// for (const qbName in quarterbackImages) {
-//   const imagePath = quarterbackImages[qbName];
-//  await Actor.update({ imagePath }, { where: { name: qbName } });
-// }
+  // Update quarterback images
+for (const actorName in actorImages) {
+  const imagePath = actorImages[actorName];
+ await Actor.update({ imagePath }, { where: { name: actorName } });
+}
 
   // Your users creation logic remains the same
   const users = await Promise.all([
