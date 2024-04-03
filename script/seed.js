@@ -36,7 +36,7 @@ async function seed() {
 
   const actorImages = {
     'Anne Hathaway': '/anne.jpg',
-    'Ben Affleck': '/ben.jpg',
+    'Ben Affleck': '/benA.jpg',
     'Eddie Murphy': '/eddie.jpg',
     'George Clooney': '/george.jpg',
     'Kate Winslet': '/kate.jpg',
