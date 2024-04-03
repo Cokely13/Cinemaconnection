@@ -11,11 +11,11 @@ async function seed() {
   // Moved CSV reading logic here
   const results = await new Promise((resolve, reject) => {
     const results = [];
-    fs.createReadStream('script/data.csv') // Ensure correct path
+    fs.createReadStream('script/actor.csv') // Ensure correct path
       .pipe(csv({
-        mapHeaders: ({ header, index }) => index === 0 ? 'receiver' : 'quarterback',
+        mapHeaders: ({ header, index }) => index === 0 ? 'movie' : 'actor',
       }))
-      .on('data', (data) => results.push([data.receiver, data.quarterback]))
+      .on('data', (data) => results.push([data.movie, data.actor]))
       .on('end', () => {
         resolve(results);
       })
@@ -24,37 +24,37 @@ async function seed() {
 
   // Process results after CSV read is complete
   for (const result of results) {
-    const [receiverName, qbName] = result;
-    let qb = await Quarterback.findOne({ where: { name: qbName } });
+    const [movieName, actorName] = result;
+    let qb = await Quarterback.findOne({ where: { name: actorName } });
 
     if (!qb) {
-      qb = await Quarterback.create({ name: qbName });
+      qb = await Quarterback.create({ name: actorName });
     }
 
-    await Receiver.create({ name: receiverName, quarterbackId: qb.id });
+    await Receiver.create({ name: movieName, quarterbackId: qb.id });
   }
 
-  const quarterbackImages = {
-    'Brady': '/Brady.jpg',
-    'Rodgers': '/rodgers.jpg',
-    'Peyton': '/Peyton.jpg',
-    'Brees': '/brees.jpg',
-    'Favre': '/favre.jpg',
-    'Eli': '/eli.jpg',
-    'Ryan': '/Ryan.jpg',
-    'Peyton': '/peyton.jpg',
-    'Marino': '/marino.jpg',
-    'Roethlisberger': '/Ben.jpg',
-    'Rivers': '/Rivers.jpg',
+//   const quarterbackImages = {
+//     'Brady': '/Brady.jpg',
+//     'Rodgers': '/rodgers.jpg',
+//     'Peyton': '/Peyton.jpg',
+//     'Brees': '/brees.jpg',
+//     'Favre': '/favre.jpg',
+//     'Eli': '/eli.jpg',
+//     'Ryan': '/Ryan.jpg',
+//     'Peyton': '/peyton.jpg',
+//     'Marino': '/marino.jpg',
+//     'Roethlisberger': '/Ben.jpg',
+//     'Rivers': '/Rivers.jpg',
 
-    // Add other quarterbacks and their image paths
-  };
 
-  // Update quarterback images
-for (const qbName in quarterbackImages) {
-  const imagePath = quarterbackImages[qbName];
- await Quarterback.update({ imagePath }, { where: { name: qbName } });
-}
+//   };
+
+//   // Update quarterback images
+// for (const qbName in quarterbackImages) {
+//   const imagePath = quarterbackImages[qbName];
+//  await Quarterback.update({ imagePath }, { where: { name: qbName } });
+// }
 
   // Your users creation logic remains the same
   const users = await Promise.all([

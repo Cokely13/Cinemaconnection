@@ -265,7 +265,7 @@ const GameBoard = () => {
           <Modal.Title>How To Play</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Select 4 players who caught touchdowns from the same quarterback.
+          Select 4 Movies from the same actor.
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
