@@ -9,7 +9,7 @@ import Error2Modal from './Error2Modal';
 import OneAwayModal from './OneAwayModal';
 import WrongModal from './WrongModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFootballBall } from '@fortawesome/free-solid-svg-icons';
+import { faFilm } from '@fortawesome/free-solid-svg-icons';
 import Confetti from 'react-confetti';
 
 
@@ -23,8 +23,23 @@ const WordCard = ({ word, onSelect, isSelected, image }) => {
   );
 };
 
-const footballIcons = Array.from({ length: 5 }, (_, index) => (
-  <FontAwesomeIcon key={index} icon={faFootballBall} style={{ marginRight: '5px' }} />
+// const WordCard = ({ word, onSelect, isSelected, image }) => {
+//   const [imageSrc, setImageSrc] = useState(null);
+
+//   useEffect(() => {
+//     setImageSrc(require(`../images${image}`));
+//   }, [image]);
+
+//   return (
+//     <div className={`word-card ${isSelected ? 'selected' : ''}`} onClick={() => onSelect(word)}>
+//       <div>{word}</div>
+//       {imageSrc && <img src={imageSrc} alt="actor" />}
+//     </div>
+//   );
+// };
+
+const movieIcons = Array.from({ length: 5 }, (_, index) => (
+  <FontAwesomeIcon key={index} icon={faFilm} style={{ marginRight: '5px' }} />
 ));
 
 
@@ -53,13 +68,20 @@ const GameBoard = () => {
 
   const allActors = useSelector((state) => state.allActors);
 
+  console.log("all", allActors)
+
   useEffect(() => {
     dispatch(fetchActors());
   }, []);
 
   const handleClose = () => setShowHowToPlayModal(false);
   const handleShow = () => {
+    setPicture(allActors[0].imagePath)
     setShowHowToPlayModal(true)}
+
+    const handleTest = () =>{
+      console.log("pictures", picture)
+    }
   const handleWin = () => {
 
     setShowWinModal(true);
@@ -195,7 +217,7 @@ const GameBoard = () => {
 
         images.push(actorImages)
         setPicture(images)
-
+          console.log("pictures", picture)
         if (submittedWords.length === 4){
           setRow2(true)
         }
@@ -249,12 +271,20 @@ const GameBoard = () => {
   };
 
   return (
-       <div className='app-container'>
+       <div >
     <div style={{ textAlign: 'center', margin: '20px' }}>
-        <Button variant="link" onClick={handleShow}>
+        <Button variant="link" onClick={handleShow} style={{ color: 'black' }}>
           <h3>How To Play</h3>
         </Button>
       </div>
+
+      <div style={{ textAlign: 'center', margin: '20px' }}>
+        <Button variant="link" onClick={handleTest} style={{ color: 'black' }}>
+          <h3>test</h3>
+        </Button>
+      </div>
+
+      {allActors ? allActors.name ? <div>{allActors[0].name}</div> : <div>work</div> :<div>TEST</div>}
 
       <div className="confetti-container">
   {showConfetti && <Confetti />}
@@ -278,7 +308,7 @@ const GameBoard = () => {
        <div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
           <h2>1st:</h2>
-          <img src={picture[0]} alt="1st" className="picture-container" />
+          <img src={picture[0][0]} alt="1st" className="picture-container" />
         </div>
       <div className='submitted-words first-row'>
   {/* Map over the first 4 words in submittedWords */}
@@ -295,7 +325,7 @@ const GameBoard = () => {
       {row2 ?     <div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
       <h2>2nd:</h2>
-      <img src={picture[1]} alt="1st" className="picture-container" />
+      <img src={picture[0][1]} alt="1st" className="picture-container" />
 
     </div>
       <div className='submitted-words second-row'>
@@ -358,7 +388,7 @@ const GameBoard = () => {
         <button className="btn btn-info" onClick={handleDeselectAll}>Deselect all</button>
         <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
         <h1 className="mistakes">
-      Mistakes remaining: {footballIcons.slice(0, 5 - mistakes)}
+      Mistakes remaining: {movieIcons.slice(0, 5 - mistakes)}
     </h1>
       </div>}
     </div>
