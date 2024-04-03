@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const { models: { Receiver, Quarterback }} = require('../db')
+const { models: { Movie, Actor }} = require('../db')
 module.exports = router
 
 
 router.get('/', async (req, res, next) => {
   try {
-    const votes = await Quarterback.findAll( {include: [ Receiver]}
+    const votes = await Actor.findAll( {include: [ Movie]}
     );
     res.json(votes);
   } catch (err) {
@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
 //POST: add a new Vote
 router.post("/", async (req, res, next) => {
   try {
-    res.status(201).send(await Quarterback.create(req.body));
+    res.status(201).send(await Actor.create(req.body));
   } catch (error) {
     next(error);
   }
@@ -24,8 +24,8 @@ router.post("/", async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    const vote = await Quarterback.findByPk(req.params.id)
-    res.send(await Quarterback.update(req.body));
+    const vote = await Actor.findByPk(req.params.id)
+    res.send(await Actor.update(req.body));
   } catch (error) {
     next(error);
   }
@@ -34,7 +34,7 @@ router.put('/:id', async (req, res, next) => {
 //Get read all votes
 router.get('/:id', async (req, res, next) => {
   try {
-    const vote = await Quarterback.findByPk(req.params.id,{include: [ Receiver]}
+    const vote = await Actor.findByPk(req.params.id,{include: [ Movie]}
     );
     res.json(vote);
   } catch (err) {
@@ -44,7 +44,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    const vote = await Quarterback.findByPk(req.params.id);
+    const vote = await Actor.findByPk(req.params.id);
     await vote.destroy();
     res.send(vote);
   } catch (error) {

@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 
-const Receiver = db.define('receiver', {
+const Movie = db.define('movie', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -10,4 +10,4 @@ const Receiver = db.define('receiver', {
 });
 
 
-module.exports = Receiver
+module.exports = Movie
