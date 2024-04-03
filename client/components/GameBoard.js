@@ -96,7 +96,7 @@ const GameBoard = () => {
 
 
 
-  const shuffleQBsAndWRs = () => {
+  const shuffleActorsAndMovies = () => {
     // Use allActors from the redux store instead of the hardcoded qbs array
     const shuffledActors = [...allActors].sort(() => 0.5 - Math.random());
 
@@ -114,7 +114,7 @@ const GameBoard = () => {
   // Ensure this useEffect hook is called after your component is mounted and whenever allActors changes
   useEffect(() => {
     if (allActors.length > 0) {
-      shuffleQBsAndWRs();
+      shuffleActorsAndMovies();
     }
   }, [allActors]);
 
@@ -156,43 +156,44 @@ const GameBoard = () => {
     setRow4(false);
     setSelectedWords(new Set());
     setShowConfetti(false)
-    shuffleQBsAndWRs();
+    shuffleActorsAndMovies();
   };
 
   const handleSubmit = () => {
     if (selectedWords.size === 4) {
       const selectedWordArray = Array.from(selectedWords);
 
-      const qbImages = [];
-      const matchingQBs = [];
+      const actorImages = [];
+      const matchingActors = [];
 
       // Check if there is a quarterback that matches three out of four receivers
-      const isSameQB = allActors.some((qb) => {
-        const matchingWRs = selectedWordArray.filter((movieName) =>
-          qb.movies.some((movie) => movie.name === movieName)
+      const isSameActor = allActors.some((actor) => {
+        const matchingMovies = selectedWordArray.filter((movieName) =>
+        actor.movies.some((movie) => movie.name === movieName)
         );
 
-        if (matchingWRs.length === 3) {
-          matchingQBs.push(qb.name);
+        if (matchingMovies.length === 3) {
+          matchingActors.push(actor.name);
         }
 
-        const allWrMatch = matchingWRs.length === 4;
+        const allMovieMatch = matchingMovies.length === 4;
 
-        if (allWrMatch) {
-          qbImages.push(qb.imagePath); // Capture the QB's image path when a match is found
+        if (allMovieMatch) {
+          actorImages.push(actor.imagePath); // Capture the QB's image path when a match is found
         }
 
-        return allWrMatch;
+        return allMovieMatch;
       });
 
-      if (isSameQB) {
+      if (isSameActor) {
         // Correctly guessed all WRs from the same QB
-        const newSubmittedWords = [...submittedWords, ...selectedWordArray.map((wrName, idx) => ({ name: wrName, qbImagePath: qbImages[idx] }))];
+        const newSubmittedWords = [...submittedWords, ...selectedWordArray.map((movieName, idx) => ({ name: movieName, actorImagePath: actorImages[idx] }))];
         setRow1(true)
         setSubmittedWords(newSubmittedWords);
         const images = [...picture]
 
-        images.push(qbImages)
+
+        images.push(actorImages)
         setPicture(images)
 
         if (submittedWords.length === 4){
@@ -210,7 +211,7 @@ const GameBoard = () => {
         }
 
         // Remove correctly guessed WRs from the game board
-        const remainingWords = gameWords.filter((wr) => !selectedWords.has(wr));
+        const remainingWords = gameWords.filter((movie) => !selectedWords.has(movie));
 
         setGameWords(remainingWords);
 
@@ -222,7 +223,7 @@ const GameBoard = () => {
           handleLoss(); // Show loss modal
         } else {
           // Check if there is only one quarterback matching three out of four receivers
-          if (matchingQBs.length === 1) {
+          if (matchingActors.length === 1) {
             handleOneAway()
           } else {
             handleWrong()
@@ -287,7 +288,7 @@ const GameBoard = () => {
       word={word.name}
       onSelect={() => {}}
       isSelected={false}
-      image={word.qbImagePath} // Pass the QB's image path
+      image={word.actorImagePath} // Pass the QB's image path
     />
   ))}
 </div></div>: <div></div>}
@@ -304,7 +305,7 @@ const GameBoard = () => {
       word={word.name}
       onSelect={() => {}}
       isSelected={false}
-      image={word.qbImagePath} // Pass the QB's image path
+      image={word.actorImagePath} // Pass the QB's image path
     />
   ))}</div></div>: <div></div>}
        {row3 ?   <div> <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'center', margin: '10px 0' }}>
@@ -317,7 +318,7 @@ const GameBoard = () => {
       word={word.name}
       onSelect={() => {}}
       isSelected={false}
-      image={word.qbImagePath} // Pass the QB's image path
+      image={word.actorImagePath} // Pass the QB's image path
     />
   ))}</div></div>: <div></div>}
 
@@ -333,7 +334,7 @@ const GameBoard = () => {
       word={word.name}
       onSelect={() => {}}
       isSelected={false}
-      image={word.qbImagePath} // Pass the QB's image path
+      image={word.actorImagePath} // Pass the QB's image path
     />
   ))}</div></div>: <div></div>}
 <div>

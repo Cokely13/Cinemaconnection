@@ -7,7 +7,10 @@ const Actor = db.define('actor', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-
+  imagePath: {
+    type: Sequelize.STRING,
+    defaultValue: "/Generic.png"
+  },
 });
 
 
