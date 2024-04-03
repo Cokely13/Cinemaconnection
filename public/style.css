@@ -250,3 +250,11 @@ text-align: center;
     letter-spacing: 1px; /* Adjust letter spacing for mobile */
   }
 }
+
+.app-container {
+  background-image: url('imax.jpg'); /* Replace 'movie-theater-background.jpg' with the path to your image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Add other styles for your app container */
+}
