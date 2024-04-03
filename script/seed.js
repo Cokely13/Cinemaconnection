@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const csv = require('csv-parser');
-const { db, models: { Quarterback, Receiver, User } } = require('../server/db');
+const { db, models: { Actor, Movie, User } } = require('../server/db');
 
 async function seed() {
   await db.sync({ force: true }); // Clears db and matches models to tables
@@ -25,13 +25,13 @@ async function seed() {
   // Process results after CSV read is complete
   for (const result of results) {
     const [movieName, actorName] = result;
-    let qb = await Quarterback.findOne({ where: { name: actorName } });
+    let actor = await Actor.findOne({ where: { name: actorName } });
 
-    if (!qb) {
-      qb = await Quarterback.create({ name: actorName });
+    if (!actor) {
+      actor = await Actor.create({ name: actorName });
     }
 
-    await Receiver.create({ name: movieName, quarterbackId: qb.id });
+    await Movie.create({ name: movieName, actorId: actor.id });
   }
 
 //   const quarterbackImages = {
@@ -53,7 +53,7 @@ async function seed() {
 //   // Update quarterback images
 // for (const qbName in quarterbackImages) {
 //   const imagePath = quarterbackImages[qbName];
-//  await Quarterback.update({ imagePath }, { where: { name: qbName } });
+//  await Actor.update({ imagePath }, { where: { name: qbName } });
 // }
 
   // Your users creation logic remains the same
@@ -69,7 +69,7 @@ async function seed() {
 
 
 
-  // const qbsAndReceivers = await readQBsAndReceivers();
+  // const qbsAndMovies = await readQBsAndMovies();
 
 
 /*

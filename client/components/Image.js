@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {fetchQuarterbacks} from '../store/allQuarterbacksStore'
+import {fetchActors} from '../store/allActorsStore'
 
 function Image() {
   const dispatch = useDispatch();
-  const allQuarterbacks = useSelector((state) => state.allQuarterbacks);
+  const allActors= useSelector((state) => state.allActors);
 
   useEffect(() => {
-    dispatch(fetchQuarterbacks());
+    dispatch(fetchActors());
   }, []);
 
 
 
   return (
     <div>
-      {allQuarterbacks.map((qb) => (
+      {allActors.map((qb) => (
         <div key={qb.id}>
           <h3>{qb.name}</h3>
           <img src={qb.imagePath} alt={qb.name} style={{ width: '100px', height: '100px' }}/>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {fetchQuarterbacks} from '../store/allQuarterbacksStore'
+import {fetchActors} from '../store/allActorsStore'
 import { Button, Modal } from 'react-bootstrap';
 import WinModal from './WinModal';
 import LossModal from './LossModal';
@@ -51,10 +51,10 @@ const GameBoard = () => {
   const [showWrongModal, setShowWrongModal] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
-  const allQuarterbacks = useSelector((state) => state.allQuarterbacks);
+  const allActors = useSelector((state) => state.allActors);
 
   useEffect(() => {
-    dispatch(fetchQuarterbacks());
+    dispatch(fetchActors());
   }, []);
 
   const handleClose = () => setShowHowToPlayModal(false);
@@ -98,26 +98,26 @@ const GameBoard = () => {
 
 
   const shuffleQBsAndWRs = () => {
-    // Use allQuarterbacks from the redux store instead of the hardcoded qbs array
-    const shuffledQBs = [...allQuarterbacks].sort(() => 0.5 - Math.random());
+    // Use allActors from the redux store instead of the hardcoded qbs array
+    const shuffledActors = [...allActors].sort(() => 0.5 - Math.random());
 
     // Select first 4 QBs
-    const selectedQBs = shuffledQBs.slice(0, 4);
+    const selectedActors = shuffledActors.slice(0, 4);
 
     // Extract and shuffle WRs from the selected QBs
-    const selectedWRs = selectedQBs.flatMap(qb =>
-      qb.receivers.sort(() => 0.5 - Math.random()).slice(0, 4)
+    const selectedMovies = selectedActors.flatMap(actor =>
+      actor.movies.sort(() => 0.5 - Math.random()).slice(0, 4)
     ).sort(() => 0.5 - Math.random());
 
-    setGameWords(selectedWRs.map(wr => wr.name));
+    setGameWords(selectedMovies.map(movie => movie.name));
   };
 
-  // Ensure this useEffect hook is called after your component is mounted and whenever allQuarterbacks changes
+  // Ensure this useEffect hook is called after your component is mounted and whenever allActors changes
   useEffect(() => {
-    if (allQuarterbacks.length > 0) {
+    if (allActors.length > 0) {
       shuffleQBsAndWRs();
     }
-  }, [allQuarterbacks]);
+  }, [allActors]);
 
 
 
@@ -168,7 +168,7 @@ const GameBoard = () => {
       const matchingQBs = [];
 
       // Check if there is a quarterback that matches three out of four receivers
-      const isSameQB = allQuarterbacks.some((qb) => {
+      const isSameQB = allActors.some((qb) => {
         const matchingWRs = selectedWordArray.filter((wrName) =>
           qb.receivers.some((receiver) => receiver.name === wrName)
         );
