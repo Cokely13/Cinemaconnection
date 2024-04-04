@@ -68,7 +68,7 @@ const GameBoard = () => {
 
   const allActors = useSelector((state) => state.allActors);
 
-  console.log("all", allActors)
+
 
   useEffect(() => {
     dispatch(fetchActors());
@@ -77,7 +77,9 @@ const GameBoard = () => {
   const handleClose = () => setShowHowToPlayModal(false);
   const handleShow = () => {
     setPicture(allActors[0].imagePath)
-    setShowHowToPlayModal(true)}
+    setShowHowToPlayModal(true)
+    console.log("pictures", picture)
+  }
 
     const handleTest = () =>{
       console.log("pictures", picture)
@@ -308,7 +310,7 @@ const GameBoard = () => {
        <div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
           <h2>1st:</h2>
-          <img src={picture[0][0]} alt="1st" className="picture-container" />
+          <img src={picture[0]} alt="1st" className="picture-container" />
         </div>
       <div className='submitted-words first-row'>
   {/* Map over the first 4 words in submittedWords */}
@@ -340,7 +342,7 @@ const GameBoard = () => {
   ))}</div></div>: <div></div>}
        {row3 ?   <div> <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'center', margin: '10px 0' }}>
       <h2>3rd:</h2>
-      <img src={picture[2]} alt="1st" className="picture-container" />
+      <img src={picture[0][2]} alt="1st" className="picture-container" />
     </div>  <div className='submitted-words third-row'>
   {submittedWords.slice(8, 12).map((word, index) => (
     <WordCard
@@ -355,7 +357,7 @@ const GameBoard = () => {
        {row4 ?  <div>
        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
        <h2>4th:</h2>
-       <img src={picture[3]} alt="1st" className="picture-container" />
+       <img src={picture[0][3]} alt="1st" className="picture-container" />
      </div>
           <div className='submitted-words winner'>
   {submittedWords.slice(12, 16).map((word, index) => (
