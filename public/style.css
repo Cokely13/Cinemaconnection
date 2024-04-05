@@ -254,6 +254,35 @@ text-align: center;
   margin: 20px 10px;
 }
 
+@media only screen and (max-width: 768px) {
+  .title-container {
+    padding: 10px 15px; /* Adjust padding for smaller screens */
+    margin: 10px; /* Adjust margin for smaller screens */
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .title-container {
+    padding: 8px 12px;
+    margin: 10px;
+  }
+}
+
+@media only screen and (min-width: 376px) and (max-width: 414px) {
+  .title-container {
+    padding: 10px 15px;
+    margin: 12px;
+  }
+}
+
+@media only screen and (min-width: 415px) {
+  .title-container {
+    padding: 10px 20px;
+    margin: 20px 10px;
+  }
+}
+
+
 .title {
   font-size: 3rem;
   color: #fff;
@@ -280,6 +309,13 @@ text-align: center;
   background-repeat: no-repeat;
   min-height: 100vh; /* Set min-height to 100vh to cover the entire screen */
   position: relative;
-  background-attachment: fixed; /* Keep the background fixed as you scroll */
+  background-attachment: fixed;
+ /* Keep the background fixed as you scroll */
   /* Add other styles for your app container */
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    background-attachment: scroll; /* Change background attachment to scroll on mobile */
+  }
 }
