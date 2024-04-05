@@ -243,9 +243,7 @@ text-align: center;
   z-index: 9999; /* Adjust z-index to ensure it's above other content */
 }
 
-.app-container {
-  text-align: center;
-}
+
 
 .title-container {
   display: inline-block;
@@ -273,11 +271,15 @@ text-align: center;
   }
 }
 
+
 .app-container {
-  background-image: url('imax.jpg'); /* Replace 'movie-theater-background.jpg' with the path to your image */
-  background-size: cover;
+  background-image: url('imax.jpg'); /* Replace 'imax.jpg' with the path to your image */
+  text-align: center;
+  background-size: cover; /* Cover the entire screen */
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100vh; /* Set min-height to 100vh to cover the entire screen */
+  position: relative;
+  background-attachment: fixed; /* Keep the background fixed as you scroll */
   /* Add other styles for your app container */
 }
