@@ -90,14 +90,18 @@ form div {
 
 .word-card {
   cursor: pointer;
-  background-color: #ff007f; /* Cool background color for word cards */
+  font-weight: bold;
+  background-color: white;
   border: 3px solid grey; /* Cool color border for word cards */
   border-radius: 10px;
   padding: 20px; /* Increase padding for better visual appeal */
   margin: 10px; /* Increase margin for better spacing */
-  text-align: center;
+  text-align: center;;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transitions */
   box-shadow: 0 4px 8px rgba(255, 0, 127, 0.3); /* Cool box shadow */
+  display: flex; /* Add flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center;
 }
 
 /* style={{backgroundColor: "gray"}} */
@@ -142,8 +146,11 @@ button:hover {
 }
 
 .mistakes {
+  display: inline-block;
   background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -178,7 +185,7 @@ button:hover {
 
 
 .control-panel button {
-  margin: 0 5px; /* Add margin between the buttons */
+  margin: 0 10px; /* Add margin between the buttons */
 }
 
 .custom-modal {
@@ -271,5 +278,6 @@ text-align: center;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  height: 100vh;
   /* Add other styles for your app container */
 }

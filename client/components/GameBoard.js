@@ -280,14 +280,6 @@ const GameBoard = () => {
         </Button>
       </div>
 
-      <div style={{ textAlign: 'center', margin: '20px' }}>
-        <Button variant="link" onClick={handleTest} style={{ color: 'black' }}>
-          <h3>test</h3>
-        </Button>
-      </div>
-
-      {allActors ? allActors.name ? <div>{allActors[0].name}</div> : <div>work</div> :<div>TEST</div>}
-
       <div className="confetti-container">
   {showConfetti && <Confetti />}
 </div>
@@ -389,10 +381,11 @@ const GameBoard = () => {
         <button className="btn btn-warning" onClick={handleShuffle}>Shuffle</button>
         <button className="btn btn-info" onClick={handleDeselectAll}>Deselect all</button>
         <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
-        <h1 className="mistakes">
-      Mistakes remaining: {movieIcons.slice(0, 5 - mistakes)}
-    </h1>
       </div>}
+      {submittedWords.length === 16 || mistakes == 5 ?
+      <div></div> : <h1 className="mistakes">
+      Mistakes remaining: {movieIcons.slice(0, 5 - mistakes)} </h1>}
+
     </div>
     <WinModal show={showWinModal} onHide={() => setShowWinModal(false)} />
       <LossModal show={showLossModal} onHide={() => setShowLossModal(false)} />
