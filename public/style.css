@@ -252,19 +252,16 @@ text-align: center;
   padding: 10px 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px 10px;
+  font-size: 5px
 }
 
-@media only screen and (max-width: 768px) {
-  .title-container {
-    padding: 10px 15px; /* Adjust padding for smaller screens */
-    margin: 10px; /* Adjust margin for smaller screens */
-  }
-}
-
+/* Media queries for different screen sizes */
 @media only screen and (max-width: 375px) {
   .title-container {
     padding: 8px 12px;
     margin: 10px;
+    font-size: 5px; /* Adjust font size for smaller screens */
+    text-align: center; /* Ensure the title remains centered */
   }
 }
 
@@ -272,6 +269,8 @@ text-align: center;
   .title-container {
     padding: 10px 15px;
     margin: 12px;
+    font-size: 5px; /* Adjust font size for medium-sized screens */
+    text-align: center; /* Ensure the title remains centered */
   }
 }
 
@@ -279,8 +278,11 @@ text-align: center;
   .title-container {
     padding: 10px 20px;
     margin: 20px 10px;
+    font-size: 24px; /* Default font size for larger screens */
+    text-align: center; /* Ensure the title remains centered */
   }
 }
+
 
 
 .title {
@@ -295,7 +297,7 @@ text-align: center;
 
 @media (max-width: 768px) {
   .title {
-    font-size: 2rem; /* Adjust font size for mobile */
+    font-size: 1rem; /* Adjust font size for mobile */
     letter-spacing: 1px; /* Adjust letter spacing for mobile */
   }
 }
