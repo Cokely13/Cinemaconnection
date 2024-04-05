@@ -327,7 +327,7 @@ const GameBoard = () => {
       {row2 ?     <div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
       <h2>2nd:</h2>
-      <img src={picture[0][1]} alt="1st" className="picture-container" />
+      <img src={picture[1]} alt="1st" className="picture-container" />
 
     </div>
       <div className='submitted-words second-row'>
@@ -342,7 +342,7 @@ const GameBoard = () => {
   ))}</div></div>: <div></div>}
        {row3 ?   <div> <div style={{ display: 'flex', flexDirection: 'column',  alignItems: 'center', margin: '10px 0' }}>
       <h2>3rd:</h2>
-      <img src={picture[0][2]} alt="1st" className="picture-container" />
+      <img src={picture[2]} alt="1st" className="picture-container" />
     </div>  <div className='submitted-words third-row'>
   {submittedWords.slice(8, 12).map((word, index) => (
     <WordCard
@@ -357,7 +357,7 @@ const GameBoard = () => {
        {row4 ?  <div>
        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px 0' }}>
        <h2>4th:</h2>
-       <img src={picture[0][3]} alt="1st" className="picture-container" />
+       <img src={picture[3]} alt="1st" className="picture-container" />
      </div>
           <div className='submitted-words winner'>
   {submittedWords.slice(12, 16).map((word, index) => (
