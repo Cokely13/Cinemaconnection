@@ -147,7 +147,7 @@ button:hover {
 
 .mistakes {
   display: inline-block;
-  background-color: #f9f9f9;
+  background-color: red;
   border: 2px solid black;
   border-radius: 5px;
   padding: 5px;
