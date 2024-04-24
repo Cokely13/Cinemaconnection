@@ -2,7 +2,7 @@
 
 const db = require('./db')
 
-const User = require('./models/User')
+// const User = require('./models/User')
 const Actor = require('./models/Actor')
 const Movie = require('./models/Movie')
 
@@ -13,7 +13,7 @@ Movie.belongsTo(Actor);
 module.exports = {
   db,
   models: {
-    User,
+    // User,
     Actor,
     Movie
   },

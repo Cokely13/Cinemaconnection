@@ -336,7 +336,7 @@ text-align: center;
   top: 0;
   left: 0;
   width: 100%;
-  background: #fff; /* Optional: for better visibility */
+  /* background: #fff;  */
   z-index: 1000; /* Make sure it's above other content */
   box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: adds shadow for depth */
   padding: 10px 0; /* Optional: for spacing */

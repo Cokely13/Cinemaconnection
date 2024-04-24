@@ -261,7 +261,7 @@ const GameBoard = () => {
 
   return (
        <div >
-         <div className="sticky-header">
+         {/* <div className="sticky-header">
         {submittedWords.length === 16 || mistakes === 5 ? (
           <button className="btn btn-primary" onClick={handlePlayAgain}>Play Again</button>
         ) : (
@@ -270,14 +270,14 @@ const GameBoard = () => {
             <button className="btn btn-info" onClick={handleDeselectAll}>Deselect all</button>
             <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
             <h1 className="mistakes">
-              Mistakes!! remaining: {movieIcons.slice(0, 5 - mistakes)}
+              Mistakes!! remaining: {movieIcons.slice(0, 3 - mistakes)}
             </h1>
           </>
         )}
-      </div>
+      </div> */}
     <div style={{ textAlign: 'center', margin: '20px' }}>
         <Button variant="link" onClick={handleShow} style={{ color: 'black' }}>
-          <h3>How To Play!!</h3>
+          <h3>How To Play</h3>
         </Button>
       </div>
 
@@ -375,8 +375,8 @@ const GameBoard = () => {
         />
       ))}
     </div>
-
-    {/* {submittedWords.length === 16 || mistakes == 5 ?  <div className="control-panel">
+    <div className={`${submittedWords.length === 16 || mistakes == 5 ? "control-panel" : "control-panel sticky-header"}`}>
+    {submittedWords.length === 16 || mistakes == 5 ?  <div className="control-panel">
           <button style={{marginBottom: '20px'}} className="btn btn-primary" onClick={handlePlayAgain}>Play Again</button>
         </div> : <div className="control-panel">
         <button className="btn btn-warning" onClick={handleShuffle}>Shuffle</button>
@@ -385,8 +385,8 @@ const GameBoard = () => {
       </div>}
       {submittedWords.length === 16 || mistakes == 5 ?
       <div></div> : <h1 className="mistakes">
-      Mistakes remaining: {movieIcons.slice(0, 5 - mistakes)} </h1>} */}
-
+      Mistakes remaining: {movieIcons.slice(0, 5 - mistakes)} </h1>}
+      </div>
 
 
     </div>
