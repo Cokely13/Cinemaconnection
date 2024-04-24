@@ -321,3 +321,23 @@ text-align: center;
     background-attachment: scroll; /* Change background attachment to scroll on mobile */
   }
 }
+
+.sticky-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff; /* Optional: for better visibility */
+  z-index: 1000; /* Make sure it's above other content */
+}
+
+.sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff; /* Optional: for better visibility */
+  z-index: 1000; /* Make sure it's above other content */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: adds shadow for depth */
+  padding: 10px 0; /* Optional: for spacing */
+}

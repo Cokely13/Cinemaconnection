@@ -23,20 +23,7 @@ const WordCard = ({ word, onSelect, isSelected, image }) => {
   );
 };
 
-// const WordCard = ({ word, onSelect, isSelected, image }) => {
-//   const [imageSrc, setImageSrc] = useState(null);
 
-//   useEffect(() => {
-//     setImageSrc(require(`../images${image}`));
-//   }, [image]);
-
-//   return (
-//     <div className={`word-card ${isSelected ? 'selected' : ''}`} onClick={() => onSelect(word)}>
-//       <div>{word}</div>
-//       {imageSrc && <img src={imageSrc} alt="actor" />}
-//     </div>
-//   );
-// };
 
 const movieIcons = Array.from({ length: 5 }, (_, index) => (
   <FontAwesomeIcon key={index} icon={faFilm} style={{ marginRight: '5px' }} />
@@ -274,9 +261,23 @@ const GameBoard = () => {
 
   return (
        <div >
+         <div className="sticky-header">
+        {submittedWords.length === 16 || mistakes === 5 ? (
+          <button className="btn btn-primary" onClick={handlePlayAgain}>Play Again</button>
+        ) : (
+          <>
+            <button className="btn btn-warning" onClick={handleShuffle}>Shuffle</button>
+            <button className="btn btn-info" onClick={handleDeselectAll}>Deselect all</button>
+            <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
+            <h1 className="mistakes">
+              Mistakes!! remaining: {movieIcons.slice(0, 5 - mistakes)}
+            </h1>
+          </>
+        )}
+      </div>
     <div style={{ textAlign: 'center', margin: '20px' }}>
         <Button variant="link" onClick={handleShow} style={{ color: 'black' }}>
-          <h3>How To Play</h3>
+          <h3>How To Play!!</h3>
         </Button>
       </div>
 
@@ -286,7 +287,7 @@ const GameBoard = () => {
       {/* How To Play Modal */}
       <Modal show={showHowToPlayModal} onHide={handleClose} className="custom-modal">
         <Modal.Header closeButton>
-          <Modal.Title>How To Play</Modal.Title>
+          <Modal.Title>How To Play!!!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Select 4 Movies from the same actor.
@@ -375,7 +376,7 @@ const GameBoard = () => {
       ))}
     </div>
 
-    {submittedWords.length === 16 || mistakes == 5 ?  <div className="control-panel">
+    {/* {submittedWords.length === 16 || mistakes == 5 ?  <div className="control-panel">
           <button style={{marginBottom: '20px'}} className="btn btn-primary" onClick={handlePlayAgain}>Play Again</button>
         </div> : <div className="control-panel">
         <button className="btn btn-warning" onClick={handleShuffle}>Shuffle</button>
@@ -384,7 +385,9 @@ const GameBoard = () => {
       </div>}
       {submittedWords.length === 16 || mistakes == 5 ?
       <div></div> : <h1 className="mistakes">
-      Mistakes remaining: {movieIcons.slice(0, 5 - mistakes)} </h1>}
+      Mistakes remaining: {movieIcons.slice(0, 5 - mistakes)} </h1>} */}
+
+
 
     </div>
     <WinModal show={showWinModal} onHide={() => setShowWinModal(false)} />
