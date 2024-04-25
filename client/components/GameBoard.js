@@ -375,7 +375,7 @@ const GameBoard = () => {
         />
       ))}
     </div>
-    <div className={`${submittedWords.length === 16 || mistakes == 5 ? "control-panel" : "control-panel sticky-header"}`}>
+    <div className={`${submittedWords.length === 16 || mistakes == 5 ? "control-panel  sticky-footer" : "control-panel sticky-footer"}`}>
     {submittedWords.length === 16 || mistakes == 5 ?  <div className="control-panel">
           <button style={{marginBottom: '20px'}} className="btn btn-primary" onClick={handlePlayAgain}>Play Again</button>
         </div> : <div className="control-panel">

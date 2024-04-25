@@ -26,6 +26,7 @@ form div {
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     padding: 20px;
+    margin-bottom: 150px;
   }
 
   .submitted-words {
@@ -327,7 +328,7 @@ text-align: center;
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #fff; /* Optional: for better visibility */
+/* Optional: for better visibility */
   z-index: 1000; /* Make sure it's above other content */
 }
 
