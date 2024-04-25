@@ -234,7 +234,9 @@ text-align: center;
   padding: 10px 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px 10px;
-  font-size: 5px
+  font-size: 5px;
+  text-align: center;
+  width: fit-content;
 }
 
 /* Media queries for different screen sizes */
@@ -295,6 +297,7 @@ text-align: center;
   position: relative;
   background-attachment: fixed;
   display: flex;
+  align-items: center;
   flex-direction: column;
  /* Keep the background fixed as you scroll */
   /* Add other styles for your app container */

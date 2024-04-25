@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="app-container">
       <div className="title-container">
-        <h1 className="title">CinemaConnection!!</h1>
+        <h1 className="title">CinemaConnection</h1>
       </div>
       {/* <Navbar /> */}
       <Routes />
