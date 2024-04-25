@@ -260,21 +260,8 @@ const GameBoard = () => {
   };
 
   return (
-       <div >
-         {/* <div className="sticky-header">
-        {submittedWords.length === 16 || mistakes === 5 ? (
-          <button className="btn btn-primary" onClick={handlePlayAgain}>Play Again</button>
-        ) : (
-          <>
-            <button className="btn btn-warning" onClick={handleShuffle}>Shuffle</button>
-            <button className="btn btn-info" onClick={handleDeselectAll}>Deselect all</button>
-            <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
-            <h1 className="mistakes">
-              Mistakes!! remaining: {movieIcons.slice(0, 3 - mistakes)}
-            </h1>
-          </>
-        )}
-      </div> */}
+       <div  >
+
     <div style={{ textAlign: 'center', margin: '20px' }}>
         <Button variant="link" onClick={handleShow} style={{ color: 'black' }}>
           <h3>How To Play</h3>

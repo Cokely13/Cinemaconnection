@@ -35,7 +35,7 @@ form div {
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     padding: 20px;
-    /* background-color: yellow; */
+
   }
 
   .submitted-words.first-row {
@@ -44,7 +44,6 @@ form div {
     border-radius: 10px;
     margin-left: 10px;
     margin-right: 10px;
-    /* This class is applied after the first 4 words are submitted */
     margin-bottom: 0; /* Removes spacing if it's the first row */
   }
 
@@ -78,16 +77,7 @@ form div {
     margin-bottom: 0; /* Removes spacing if it's the first row */
   }
 
-/* .word-card {
-  cursor: pointer;
-  background-color: #f2f2f2;
-  border: 2px solid black;
-  padding: 10px 20px;
-  margin: 5px;
-  text-align: center;
-  transition: background-color 0.3s, color 0.3s;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-} */
+
 
 .word-card {
   cursor: pointer;
@@ -105,22 +95,13 @@ form div {
   align-items: center;
 }
 
-/* style={{backgroundColor: "gray"}} */
 
-/* .word-card.selected {
-  background-color: red; /* Red background for selected cards */
-} */
 
 /* Adjust the grid-template-columns to accommodate 3 columns when there are only 12 words */
 .game-board.adjusted {
   grid-template-columns: repeat(3, 1fr);
 }
-/*
-@media (max-width: 768px) {
-  .game-board {
-    grid-template-columns: repeat(3, 1fr);
-  }
-} */
+
 
 
 .word-card.selected {
@@ -313,9 +294,12 @@ text-align: center;
   min-height: 100vh; /* Set min-height to 100vh to cover the entire screen */
   position: relative;
   background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
  /* Keep the background fixed as you scroll */
   /* Add other styles for your app container */
 }
+
 
 @media (max-width: 768px) {
   .app-container {
